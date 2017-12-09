@@ -2,6 +2,8 @@
 from PyQt4 import  QtCore, QtGui, QtSvg
 import sys
 import os
+import xxhash
+import os.path
 
 
 class Enumeration(set):
@@ -53,10 +55,55 @@ except AttributeError:
 
 
 class gui(QtGui.QMainWindow):
+    #def defaultStyle
+    #def defaultFontName
+    #def defaultFont
+    
+    def setDefaultFont(self,fontName,size=26):
+        self.defaultFont=QtGui.QFont()
+        self.defaultFont.setFamily(self.defaultFontName)
+        self.defaultFont.setPointSize(size)
+        self.defaultFont.setStrikeOut(False)
+
+    def renderSvg(self,svg,size):
+        if (type(size) is not QtCore.QSize):
+            raise AttributeError("Pass QSize")
+        renderer = QtSvg.QSvgRenderer(QtCore.QByteArray(svg))
+        qim = QtGui.QImage(size, QtGui.QImage.Format_ARGB32)
+        qim.fill(0)
+        painter = QtGui.QPainter()
+        painter.begin(qim)
+        renderer.render(painter)
+        painter.end()
+        return qim
+    
+    def saveImg(self,svg,size):
+        name=xxhash.xxh64(svg+str(size)).hexdigest()
+        path=self.imageFolder + os.sep + name[:3]+ os.sep + name[3:6]+ os.sep 
+        filename=name[6:]+".png"
+        url=path+filename
+        if(not os.path.isfile(url)):
+          if( not os.path.isdir(path)):
+            os.makedirs(path)
+          image=self.renderSvg(svg,size)
+          image.save(url,"PNG")
+        return url
+    
+    def createButton(self,svg,size,text):
+        if (type(size) is not QtCore.QSize):
+            raise AttributeError("Pass QSize")
+        button = QtGui.QPushButton(self.centralwidget)
+        button.setFont(self.defaultFont)
+        url=self.saveImg(svg,size)
+        button.setStyleSheet( self.defaultStyle+"\nbackground-image: url("+url+");" )
+        button.setText(_translate("MainWindow", text, None))
+        button.setFlat(True)
+        return button
+        
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
-        MainWindow.resize(800, 480)
-        MainWindow.setStyleSheet(_fromUtf8("border: none;\nbackground: #000;\n"))
+        MainWindow.resize(self.mainWindowSize)
+        MainWindow.setStyleSheet(self.defaultStyle)
         MainWindow.setDocumentMode(False)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -70,4 +117,13 @@ class gui(QtGui.QMainWindow):
 
     def __init__(self, parent=None):
         super(gui, self).__init__(parent)
+        #self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
+        #"background-image: url(:/AddButton.png);"
+        #"background-repeat: no-repeat;"
+        #"background-position: center center"
+        self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\nText-align: right;")
+        self.defaultFontName=_fromUtf8("LCARS")
+        self.setDefaultFont(self.defaultFontName)
+        self.imageFolder="background"
+        self.mainWindowSize=QtCore.QSize(800, 480)
         self.setupUi(self)
