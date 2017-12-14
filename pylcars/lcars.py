@@ -18,7 +18,7 @@ except AttributeError:
         return QtGui.QApplication.translate(context, text, disambig)
 
 
-class Gui(QtGui.QMainWindow):
+class Lcars(QtGui.QMainWindow):
     default_style = "border: none;\nbackground: #000;\n"
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
@@ -55,7 +55,7 @@ class Gui(QtGui.QMainWindow):
         stream.start_stream()
 
     def __init__(self, parent=None):
-        super(Gui, self).__init__(parent)
+        super(Lcars, self).__init__(parent)
         # self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
         # "background-image: url(:/AddButton.png);"
         # "background-repeat: no-repeat;"

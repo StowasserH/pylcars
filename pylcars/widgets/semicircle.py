@@ -38,9 +38,9 @@ class Semicircle(Widgets, QtGui.QPushButton):
         button.setGeometry(rect)
         return button
 
-    def __init__(self,gui, rect, text,color,orientation,style=None):
-        Widgets.__init__(self,gui)
-        QtGui.QPushButton.__init__(self,gui)
+    def __init__(self,lcars, rect, text,color,orientation,style=None):
+        Widgets.__init__(self,lcars)
+        QtGui.QPushButton.__init__(self,lcars)
         #self.default_style = "border: none;\nbackground: #000;\nText-align: right;"
         self.setText(text)
         self.setFont(self.default_font)

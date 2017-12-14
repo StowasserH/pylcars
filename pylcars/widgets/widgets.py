@@ -8,8 +8,8 @@ import os.path
 
 
 class Widgets:
-    def __init__(self, gui):
-        self.gui = gui
+    def __init__(self, lcars):
+        self.lcars = lcars
         self.default_font = QtGui.QFont()
         self.default_font_name = "LCARS"
         self.set_default_font()
