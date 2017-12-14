@@ -1,9 +1,7 @@
 # -*- coding: utf-8 -*-
-from PyQt4 import  QtCore, QtGui, QtSvg
-import sys
-import os
-import xxhash
-import os.path
+from PyQt4 import QtCore, QtGui, QtSvg
+import pyaudio
+import wave
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
@@ -21,48 +19,11 @@ except AttributeError:
 
 
 class Gui(QtGui.QMainWindow):
-   
-    def setDefaultFont(self,fontName,size=26):
-        self.defaultFont=QtGui.QFont()
-        self.defaultFont.setFamily(self.defaultFontName)
-        self.defaultFont.setPointSize(size)
-        self.defaultFont.setStrikeOut(False)
-
-    def renderSvg(self,svg,size):
-        renderer = QtSvg.QSvgRenderer(QtCore.QByteArray(svg))
-        qim = QtGui.QImage(size, QtGui.QImage.Format_ARGB32)
-        qim.fill(0)
-        painter = QtGui.QPainter()
-        painter.begin(qim)
-        renderer.render(painter)
-        painter.end()
-        return qim
-    
-    def saveImg(self,svg,size):
-        name=xxhash.xxh64(svg+str(size)).hexdigest()
-        path=os.path.join(self.imageFolder, name[:3],name[3:6])
-        filename=name[6:]+".png"
-        url=os.path.join(path,filename)
-        if not os.path.isfile(url):
-            if not os.path.isdir(path):
-                os.makedirs(path)
-            image=self.renderSvg(svg,size)
-            image.save(url,"PNG")
-        return url
-    
-    def createButton(self,svg,size,text):
-        button = QtGui.QPushButton(self.centralwidget)
-        button.setFont(self.defaultFont)
-        url=self.saveImg(svg,size)
-        button.setStyleSheet( self.defaultStyle+"\nbackground-image: url("+url+");" )
-        button.setText(_translate("MainWindow", text, None))
-        button.setFlat(True)
-        return button
-        
+    default_style = "border: none;\nbackground: #000;\n"
     def setupUi(self, MainWindow):
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(self.mainWindowSize)
-        MainWindow.setStyleSheet(self.defaultStyle)
+        MainWindow.setStyleSheet(self.default_style)
         MainWindow.setDocumentMode(False)
         self.centralwidget = QtGui.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
@@ -74,15 +35,35 @@ class Gui(QtGui.QMainWindow):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
 
+
+    def sound(self, file):
+        CHUNK = 256
+        wf = wave.open(file, 'rb')
+
+        # define callback (2)
+        def callback(in_data, frame_count, time_info, status):
+            data = wf.readframes(frame_count)
+            return (data, pyaudio.paContinue)
+
+        # open stream using callback (3)
+        stream = self.wav.open(format=self.wav.get_format_from_width(wf.getsampwidth()),
+                               channels=wf.getnchannels(),
+                               rate=wf.getframerate(),
+                               output=True,
+                               frames_per_buffer=CHUNK,
+                               stream_callback=callback)
+        stream.start_stream()
+
     def __init__(self, parent=None):
         super(Gui, self).__init__(parent)
-        #self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
-        #"background-image: url(:/AddButton.png);"
-        #"background-repeat: no-repeat;"
-        #"background-position: center center"
-        self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\nText-align: right;")
-        self.defaultFontName=_fromUtf8("LCARS")
-        self.setDefaultFont(self.defaultFontName)
-        self.imageFolder="background"
-        self.mainWindowSize=QtCore.QSize(800, 480)
+        # self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
+        # "background-image: url(:/AddButton.png);"
+        # "background-repeat: no-repeat;"
+        # "background-position: center center"
+
+        self.mainWindowSize = QtCore.QSize(800, 480)
         self.setupUi(self)
+        self.wav = pyaudio.PyAudio()
+
+    def __del__(self):
+        self.wav.terminate();
