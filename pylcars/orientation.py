@@ -2,6 +2,7 @@
 
 from enumeration import Enumeration
 
+
 class Orientation(Enumeration):
     left = 0
     right = 1
