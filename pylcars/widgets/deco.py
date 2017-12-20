@@ -18,6 +18,5 @@ class Deco(Widgets, QtGui.QLabel):
             style = self.default_style
         self.style = style
         url = self.build_svg(color)
-        print url
         self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
         self.show()

@@ -28,8 +28,8 @@ class Widgets:
     def tickle_done(self):
         self.paint_back()
 
-    def tockle(self, color):
-        if not self.toggle:
+    def tockle(self, color=None):
+        if not self.toggle and color:
             self.paint_back(color)
         else:
             self.paint_back(self.color)
@@ -38,7 +38,6 @@ class Widgets:
     def set_default_font(self, fontname=None, size=26):
         if not fontname:
             fontname = self.default_font_name
-        print "font=" + fontname
         self.default_font.setFamily(fontname)
         self.default_font.setPointSize(size)
         self.default_font.setStrikeOut(False)
