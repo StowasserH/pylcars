@@ -62,8 +62,12 @@ class Widgets:
 
     def paint_back(self, color=None):
         if hasattr(self, 'svg'):
-            style = self.parse_style(self.style)
-            self.setStyleSheet(style + "\nbackground-image: url(" + self.build_svg(color) + ");")
+            url=self.build_svg(color)
+            if hasattr(self, 'paint_pixmap'):
+                self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
+            else:
+                style = self.parse_style(self.style, bgcol=self.background_col)
+                self.setStyleSheet(style + "\nbackground-image: url(" + url + ");")
         else:
             style = self.parse_style(self.style, bgcol=color)
             self.setStyleSheet(style)
