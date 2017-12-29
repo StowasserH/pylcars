@@ -26,7 +26,7 @@ class Widgets:
         timer.start(300)
 
     def tickle_done(self):
-        self.paint_back()
+        self.paint_back(self.color)
 
     def tockle(self, color=None):
         if not self.toggle and color:
@@ -65,9 +65,8 @@ class Widgets:
             url=self.build_svg(color)
             if hasattr(self, 'paint_pixmap'):
                 self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
-            else:
-                style = self.parse_style(self.style, bgcol=self.background_col)
-                self.setStyleSheet(style + "\nbackground-image: url(" + url + ");")
+            style = self.parse_style(self.style, bgcol=self.background_col)
+            self.setStyleSheet(style + "\nbackground-image: url(" + url + ");")
         else:
             style = self.parse_style(self.style, bgcol=color)
             self.setStyleSheet(style)
