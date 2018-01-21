@@ -27,7 +27,9 @@ class Separator(Deco):
             htot = h
         return self.svg.format(h=h, w=w, c=c, h2=h / 2, h0=h0,htot=htot, hm=hm, bar=self.bar_width)
 
-    def __init__(self, lcars, rect, color, bar_width, style=None, orientation=Orientation.top):
+    def __init__(self, lcars, rect, color, bar_width, style=None, orientation=Orientation.top,svg=None):
+        if svg:
+            self.svg=svg
         self.bar_width = bar_width+(rect.height() / 2);
         self.orientation = orientation
         super(Separator, self).__init__(lcars, rect, color, style=style)
