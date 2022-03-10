@@ -8,8 +8,8 @@ These instructions will get you a copy of the project up and running on your loc
 ### Prerequisites
 
 You need some software to create your own LCARS display.
-  * Python 2.x
-  * PyQT
+  * Python 3.x
+  * PyQT5
   * xxhash
   * pyaudio
 
@@ -19,7 +19,7 @@ You need some software to create your own LCARS display.
 ```
 sudo apt-get update 
 sudo apt-get -y upgrade
-apt-get install python2.7 python-pip portaudio19-dev python-qt4 python-dev
+apt-get install python3 python3-pip portaudio19-dev python-qt5 python3-dev
 pip install xxhash pyaudio
 cd your_project_folder
 git clone https://github.com/StowasserH/pylcars.git
