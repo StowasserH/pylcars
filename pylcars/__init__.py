@@ -1,5 +1,5 @@
 from .lcars import Lcars
-#from .enumeration import Enumeration
+from .enumeration import Enumeration
 from .conditions import Conditions
 from .colors import Colors
 from .orientation import Orientation

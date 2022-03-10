@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from PyQt4 import QtCore, QtGui, QtSvg
+from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 from .sound import Sound
 
 try:
@@ -9,17 +9,17 @@ except AttributeError:
         return s
 
 try:
-    _encoding = QtGui.QApplication.UnicodeUTF8
+    _encoding = QtWidgets.QApplication.UnicodeUTF8
 
 
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig, _encoding)
+        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
     def _translate(context, text, disambig):
-        return QtGui.QApplication.translate(context, text, disambig)
+        return QtWidgets.QApplication.translate(context, text, disambig)
 
 
-class Lcars(Sound, QtGui.QMainWindow):
+class Lcars(Sound, QtWidgets.QMainWindow):
     default_style = "border: none;\nbackground: #000;\n"
 
     def setupUi(self, MainWindow):
@@ -27,7 +27,7 @@ class Lcars(Sound, QtGui.QMainWindow):
         MainWindow.resize(self.mainWindowSize)
         MainWindow.setStyleSheet(self.default_style)
         MainWindow.setDocumentMode(False)
-        self.centralwidget = QtGui.QWidget(MainWindow)
+        self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
         MainWindow.setCentralWidget(self.centralwidget)
 
@@ -38,7 +38,7 @@ class Lcars(Sound, QtGui.QMainWindow):
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
 
     def __init__(self, parent=None):
-        QtGui.QMainWindow.__init__(self,parent)
+        QtWidgets.QMainWindow.__init__(self,parent)
         Sound.__init__(self)
         # self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
         # "background-image: url(:/AddButton.png);"

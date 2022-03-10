@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-from enumeration import Enumeration
+from .enumeration import Enumeration
 
 
 class Orientation(Enumeration):

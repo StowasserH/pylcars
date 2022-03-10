@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-from PyQt4 import QtCore, QtGui, QtSvg
+from PyQt5 import QtCore, QtGui, QtSvg
 import os
 import xxhash
 import os.path
@@ -72,7 +72,9 @@ class Widgets:
             self.setStyleSheet(style)
 
     def render_svg(self, svg, size):
-        renderer = QtSvg.QSvgRenderer(QtCore.QByteArray(svg))
+        qByteArray = QtCore.QByteArray()
+        qByteArray.append(svg)
+        renderer = QtSvg.QSvgRenderer(qByteArray)
         qim = QtGui.QImage(size, QtGui.QImage.Format_ARGB32)
         qim.fill(0)
         painter = QtGui.QPainter()

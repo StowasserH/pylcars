@@ -1,15 +1,15 @@
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 from .widgets import Widgets
 import os
 
 
-class Deco(Widgets, QtGui.QLabel):
+class Deco(Widgets, QtWidgets.QLabel):
     def __init__(self, lcars, rect, color, svg=None, style=None):
         if not style:
             style = self.default_style
         self.style = style
         Widgets.__init__(self, lcars)
-        QtGui.QLabel.__init__(self, lcars)
+        QtWidgets.QLabel.__init__(self, lcars)
         self.setGeometry(rect)
         self.setFont(self.default_font)
         if svg:

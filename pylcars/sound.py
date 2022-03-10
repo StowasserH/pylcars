@@ -13,14 +13,14 @@ class Sound():
     def __init__(self):
         self.sound_file = None
         self.wav = None
-        self.streams=[]
+        self.streams = []
 
     def __del__(self):
         if self.wav:
             self.wav.terminate()
 
     def sound(self, file):
-        #first close old, allready played sounds:
+        # first close old, allready played sounds:
         for stream in self.streams:
             if not stream.is_active():
                 stream.stop_stream()
@@ -42,7 +42,7 @@ class Sound():
                                    output=True,
                                    frames_per_buffer=chunk,
                                    stream_callback=callback,
-                                   )# start=True)
+                                   )  # start=True)
             self.streams.append(stream)
 
     def setPlay_sound(self, play_sound=True):

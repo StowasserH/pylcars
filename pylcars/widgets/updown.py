@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 import sys
-from PyQt4 import QtCore, QtGui, QtSvg
+from PyQt5 import QtCore, QtGui, QtSvg
 from .bracket import Bracket
 from ..conditions import Conditions
 from .semicircle import Semicircle

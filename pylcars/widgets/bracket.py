@@ -1,12 +1,12 @@
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 from .widgets import Widgets
 
 
-class Bracket(Widgets, QtGui.QPushButton):
+class Bracket(Widgets, QtWidgets.QPushButton):
 
     def __init__(self, lcars, rect, text, color, style=None):
         Widgets.__init__(self, lcars)
-        QtGui.QPushButton.__init__(self, lcars)
+        QtWidgets.QPushButton.__init__(self, lcars)
         self.setText(text)
         self.rect = rect
         self.setFont(self.default_font)

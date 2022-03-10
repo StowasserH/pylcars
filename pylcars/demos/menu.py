@@ -1,5 +1,5 @@
 import random
-from PyQt4 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 import subprocess
 from functools import partial
 
@@ -51,7 +51,7 @@ class LcarsApp(pylcars.Lcars):
         for color in pylcars.Colors.__dict__.items():
             if not color[0].startswith('_'):
                 self.colors[color[0]] = color[1]
-        print str(self.colors)
+        print (str(self.colors))
         for row in range(8):
             self.buttons[row] = {}
             for col in range(4):
@@ -156,7 +156,7 @@ class LcarsApp(pylcars.Lcars):
 
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     form = LcarsApp()
     form.show()
     app.exec_()
