@@ -2,8 +2,6 @@ from PyQt5 import QtCore, QtGui
 
 from pylcars import Deco
 
-from .widgets import Widgets
-import os
 
 
 class Textline(Deco):

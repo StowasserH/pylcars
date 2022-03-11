@@ -1,6 +1,4 @@
-from PyQt5 import QtCore, QtGui
 from pylcars.orientation import Orientation
-from .widgets import Widgets
 from .bracket import Bracket
 
 class Semicircle(Bracket):

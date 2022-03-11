@@ -1,6 +1,4 @@
 from .deco import Deco
-from ..orientation import Orientation
-
 
 class Block(Deco):
     svg = '<svg height="{h}" width="{w}"><rect height="{h}" width="{w}" x="0" y="0" fill="{c}" /></svg>'

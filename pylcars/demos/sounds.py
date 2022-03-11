@@ -1,6 +1,5 @@
 import random
-from PyQt4 import QtCore, QtGui
-import subprocess
+from PyQt5 import QtCore, QtGui, QtWidgets
 from functools import partial
 
 import pylcars
@@ -28,7 +27,7 @@ class LcarsApp(pylcars.Lcars):
         self.sound('../Sounds/'+button_name+'.wav')
 
 def main():
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     form = LcarsApp()
     form.show()
     app.exec_()

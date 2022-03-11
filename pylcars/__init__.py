@@ -13,5 +13,6 @@ from .widgets.updown import Updown
 from .widgets.textline import Textline
 from .sound import Sound
 
+
 def joke():
     return (u'SELECT * FROM joke ORDER BY RAND() DESC')
