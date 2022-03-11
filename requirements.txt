@@ -1,4 +1,4 @@
-pylcars~=0.0.1
+#pylcars~=0.0.1
 PyQt5~=5.15.6
 xxhash~=3.0.0
 PyAudio~=0.2.11
