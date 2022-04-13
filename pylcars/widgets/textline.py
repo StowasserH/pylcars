@@ -1,11 +1,10 @@
-from PyQt5 import QtCore, QtGui
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 from pylcars import Deco
 
 
-
 class Textline(Deco):
-    def __init__(self, lcars, rect, text_color, text_height, svg=None, style=None):
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text_color, text_height, svg=None, style=None):
         if not style:
             style = self.default_style
         self.mainstyle = style

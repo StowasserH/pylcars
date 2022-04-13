@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from PyQt5 import QtCore, QtGui, QtSvg
+from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 from .bracket import Bracket
 from ..conditions import Conditions
 from .semicircle import Semicircle
@@ -7,12 +7,13 @@ from ..orientation import Orientation
 
 
 class Updown:
-    def __init__(self, lcars, rect,text="text", color_use=Conditions.use, color_active=Conditions.active, button_space=4):
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text="text", color_use=Conditions.use,
+                 color_active=Conditions.active, button_space=4):
         self.sound_file = None
         self.lcars = lcars
         self.color = color_use
         self.color_active = color_active
-        self.text=text
+        self.text = text
         rx = rect.x()
         ry = rect.y()
         rh = rect.height()

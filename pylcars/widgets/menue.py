@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from PyQt5 import QtCore, QtGui, QtSvg
+from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 from .separator import Separator
 from ..conditions import Conditions
 from ..orientation import Orientation
@@ -42,9 +42,9 @@ class Menue():
     def setEnabled(self,enabled):
         self.enabled = enabled
 
-    def __init__(self, lcars, fields, rect, button_size, color_use=Conditions.use, color_active=Conditions.active,
+    def __init__(self, lcars:QtWidgets.QWidget, fields, rect: QtCore.QRect, button_size, color_use=Conditions.use, color_active=Conditions.active,
                  button_space=4, button_callback=None):
-        self.lcars = lcars
+        self.lcars:QtWidgets.QWidget = lcars
         self.color = color_use
         self.color_active = color_active
         self.enabled = True

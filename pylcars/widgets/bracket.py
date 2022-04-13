@@ -4,11 +4,11 @@ from .widgets import Widgets
 
 class Bracket(Widgets, QtWidgets.QPushButton):
 
-    def __init__(self, lcars, rect, text, color, style=None):
+    def __init__(self, lcars:QtWidgets.QWidget, rect: QtCore.QRect, text, color, style=None):
         Widgets.__init__(self, lcars)
         QtWidgets.QPushButton.__init__(self, lcars)
         self.setText(text)
-        self.rect = rect
+        self.rect: QtCore.QRect = rect
         self.setFont(self.default_font)
         self.setFlat(True)
         self.setGeometry(rect)

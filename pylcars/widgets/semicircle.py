@@ -1,3 +1,5 @@
+from PyQt5 import QtWidgets, QtCore
+
 from pylcars.orientation import Orientation
 from .bracket import Bracket
 
@@ -26,6 +28,6 @@ class Semicircle(Bracket):
             c = self.color
         return self.svg.format(h=h, w=w,r=r,rh=rh, rw=rw, rx=rx, ry=ry,c=c)
 
-    def __init__(self, lcars, rect, text, color, orientation, style=None):
+    def __init__(self, lcars:QtWidgets.QWidget, rect: QtCore.QRect, text, color, orientation, style=None):
         self.orientation = orientation
         Bracket.__init__(self, lcars, rect, text, color, style)

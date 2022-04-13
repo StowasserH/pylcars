@@ -10,6 +10,7 @@ from .widgets.separator import Separator
 from .widgets.bracket import Bracket
 from .widgets.menue import Menue
 from .widgets.updown import Updown
+from .widgets.slider import Slider
 from .widgets.textline import Textline
 from .sound import Sound
 

@@ -1,3 +1,5 @@
+from PyQt5 import QtWidgets, QtCore
+
 from .deco import Deco
 from ..orientation import Orientation
 
@@ -18,18 +20,19 @@ class Separator(Deco):
         if not c:
             c = self.color
         if self.orientation == Orientation.bottom:
-            h0   = 0
-            hm   = h / 2
+            h0 = 0
+            hm = h / 2
             htot = 0
         else:
-            h0   = h / 2
-            hm   = 0
+            h0 = h / 2
+            hm = 0
             htot = h
-        return self.svg.format(h=h, w=w, c=c, h2=h / 2, h0=h0,htot=htot, hm=hm, bar=self.bar_width)
+        return self.svg.format(h=h, w=w, c=c, h2=h / 2, h0=h0, htot=htot, hm=hm, bar=self.bar_width)
 
-    def __init__(self, lcars, rect, color, bar_width, style=None, orientation=Orientation.top,svg=None):
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, color, bar_width, style=None,
+                 orientation=Orientation.top, svg=None):
         if svg:
-            self.svg=svg
-        self.bar_width = bar_width+(rect.height() / 2);
+            self.svg = svg
+        self.bar_width = bar_width + (rect.height() / 2);
         self.orientation = orientation
         super(Separator, self).__init__(lcars, rect, color, style=style)

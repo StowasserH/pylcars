@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from PyQt5 import QtCore, QtGui, QtSvg
+from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 import os
 import xxhash
 import os.path
@@ -8,7 +8,7 @@ import os.path
 class Widgets:
     default_style = "border: none;\nbackground: {bg};\nText-align: right;"
 
-    def __init__(self, lcars):
+    def __init__(self, lcars: QtWidgets.QWidget):
         self.toggle = False
         self.lcars = lcars
         self.default_font = QtGui.QFont()
@@ -32,7 +32,7 @@ class Widgets:
             self.paint_back(color)
         else:
             self.paint_back(self.color)
-        self.toggle=not self.toggle
+        self.toggle = not self.toggle
 
     def set_default_font(self, fontname=None, size=26):
         if not fontname:
@@ -42,7 +42,7 @@ class Widgets:
         self.default_font.setStrikeOut(False)
 
     def adapt_svg(self, color=None):
-        rect = self.rect
+        rect: QtCore.QRect = self.rect
         h = rect.height()
         w = rect.width()
         c = color
@@ -61,7 +61,7 @@ class Widgets:
 
     def paint_back(self, color=None):
         if hasattr(self, 'svg'):
-            url=self.build_svg(color)
+            url = self.build_svg(color)
             if hasattr(self, 'paint_pixmap'):
                 self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
             style = self.parse_style(self.style, bgcol=self.background_col)

@@ -6,6 +6,8 @@ from functools import partial
 import pylcars
 import sys
 
+from pylcars import Colors
+
 
 class LcarsApp(pylcars.Lcars):
     def exit_to_desk(self):
@@ -25,15 +27,30 @@ class LcarsApp(pylcars.Lcars):
     def __init__(self, parent=None):
         pylcars.Lcars.__init__(self, parent)
         self.qurrent_title_timer = QtCore.QTimer(self)
-        fields = ('BUTTONS', 'DECO', 'EXIT')
+        fields = ('BUTTONS', 'DECO', 'SLIDER', 'EXIT')
         self.menue = pylcars.Menue(self, fields, QtCore.QRect(0, 0, 800, 480), QtCore.QSize(130, 40),
                                    button_callback=self.menu_click)
+        # _________________________________________________________________
+        #
+        #   The Slider -Page
+        # _________________________________________________________________
+        self.vslider = pylcars.Slider(self, QtCore.QRect(140, 44, 180, 40),QtCore.Qt.Horizontal)
+        self.vslider.setInvertedAppearance(True)
+        self.vslider.setInvertedControls(True)
+        self.menue.pages['SLIDER']['slider'] = self.vslider
+
+        self.hslider = pylcars.Slider(self, QtCore.QRect(140, 84, 40, 180),QtCore.Qt.Vertical)
+        self.hslider.setInvertedAppearance(True)
+        self.hslider.setInvertedControls(True)
+        self.menue.pages['SLIDER']['hslider'] = self.hslider
+
+        # self.vslider.setTickPosition(QtWidgets.QSlider.TicksBothSides)
         # _________________________________________________________________
         #
         #   The Buttons -Page
         # _________________________________________________________________
 
-        self.updown = pylcars.Updown(self, QtCore.QRect(140, 44, 180, 40), text="0 ")
+        self.updown = pylcars.Updown(self, QtCore.QRect(140, 44, 180, 40), "0 ")
         self.menue.pages['BUTTONS']['updown'] = self.updown
         self.updown.down.clicked.connect(self.updown_down)
         self.updown.up.clicked.connect(self.updown_up)
@@ -51,7 +68,7 @@ class LcarsApp(pylcars.Lcars):
         for color in pylcars.Colors.__dict__.items():
             if not color[0].startswith('_'):
                 self.colors[color[0]] = color[1]
-        print (str(self.colors))
+        print(str(self.colors))
         for row in range(8):
             self.buttons[row] = {}
             for col in range(4):
@@ -72,7 +89,7 @@ class LcarsApp(pylcars.Lcars):
               '<rect height="10" width="200" x="0" y="95" fill="#000" />' \
               '<circle cx="100" cy="100" r="50" fill="#000" />' \
               '<circle cx="100" cy="100" r="25" fill="{c2}" />' \
-              '</svg>'.format(c1=pylcars.Conditions.alert,c2=pylcars.Conditions.use)
+              '</svg>'.format(c1=pylcars.Conditions.alert, c2=pylcars.Conditions.use)
 
         self.deco = pylcars.Deco(self, QtCore.QRect(300, 100, 200, 200), pylcars.Conditions.alert, svg=svg)
         self.deco.hide()
@@ -128,7 +145,7 @@ class LcarsApp(pylcars.Lcars):
 
     def button_callback(self, button_name):
         name, color = random.choice(list(self.colors.items()))
-        if random.choice((1,2))==1:
+        if random.choice((1, 2)) == 1:
             self.menue.pages['BUTTONS'][button_name].tockle(color)
         else:
             self.menue.pages['BUTTONS'][button_name].tickle(color)
