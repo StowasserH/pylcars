@@ -1,5 +1,5 @@
 #pylcars~=0.0.1
-PyQt5~=5.15.6
+PyQt5
 xxhash~=3.0.0
 PyAudio~=0.2.11
 setuptools~=57.0.0
