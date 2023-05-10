@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+from typing import Any
+
 from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 from .separator import Separator
 from ..conditions import Conditions
@@ -39,22 +41,22 @@ class Menue():
         self.linebot.paint_back(color)
         self.fill.paint_back(color)
 
-    def setEnabled(self,enabled):
+    def setEnabled(self, enabled):
         self.enabled = enabled
 
-    def __init__(self, lcars:QtWidgets.QWidget, fields, rect: QtCore.QRect, button_size, color_use=Conditions.use, color_active=Conditions.active,
-                 button_space=4, button_callback=None):
-        self.lcars:QtWidgets.QWidget = lcars
+    def __init__(self, lcars: QtWidgets.QWidget, fields, rect: QtCore.QRect, button_size, color_use=Conditions.use,
+                 color_active=Conditions.active, button_space: int = 4, button_callback=None):
+        self.lcars: QtWidgets.QWidget = lcars
         self.color = color_use
         self.color_active = color_active
         self.enabled = True
-        rx = rect.x()
-        ry = rect.y()
-        rh = rect.height()
-        rw = rect.width()
-        bw = button_size.width()
-        bh = button_size.height()
-        seperator_width = bw + bw / 2
+        rx: int = rect.x()
+        ry: int = rect.y()
+        rh: int = rect.height()
+        rw: int = rect.width()
+        bw: int = button_size.width()
+        bh: int = button_size.height()
+        seperator_width: int = int(bw + bw / 2)
         self.top = Separator(lcars, QtCore.QRect(rx, ry, seperator_width, bh), color_use, bw,
                              orientation=Orientation.top)
         self.buttons = {}
@@ -71,11 +73,11 @@ class Menue():
         self.buttons[self.active_page].tockle(Conditions.active)
         self.bot = Separator(lcars, QtCore.QRect(rx, rh - bh, seperator_width, bh), color_use, bw,
                              orientation=Orientation.bottom)
-        lx = rx + seperator_width + button_space
-        lw = rw - lx
+        lx: int = rx + seperator_width + button_space
+        lw: int = rw - lx
 
-        self.linetop = Block(lcars, QtCore.QRect(lx, ry, lw, bh / 2), Conditions.use)
-        bs = rh - bh / 2
-        self.linebot = Block(lcars, QtCore.QRect(lx, bs, lw, bh / 2), Conditions.use)
+        self.linetop = Block(lcars, QtCore.QRect(lx, ry, lw, int(bh / 2)), Conditions.use)
+        bs: int = int(rh - bh / 2)
+        self.linebot = Block(lcars, QtCore.QRect(lx, bs, lw, int(bh / 2)), Conditions.use)
         # pos += bh + button_space
-        self.fill = Block(lcars, QtCore.QRect(rx, pos, bw, rh - bh - pos - button_space), Conditions.use)
+        self.fill = Block(lcars, QtCore.QRect(rx, pos, bw, int(rh - bh - pos - button_space)), Conditions.use)
