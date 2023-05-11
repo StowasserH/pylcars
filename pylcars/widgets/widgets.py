@@ -8,7 +8,8 @@ import os.path
 class Widgets:
     default_style = "border: none;\nbackground: {bg};\nText-align: right;"
 
-    def __init__(self, lcars: QtWidgets.QWidget):
+    def __init__(self, lcars: QtWidgets.QWidget, svg=None):
+        self.svg = svg
         self.toggle = False
         self.lcars = lcars
         self.default_font = QtGui.QFont()
@@ -45,14 +46,16 @@ class Widgets:
         rect: QtCore.QRect = self.rect
         h = rect.height()
         w = rect.width()
-        c = color
-        if not c:
-            c = self.color
-        return self.svg.format(h=h, w=w, c=c)
+        if color is None:
+            color = self.color
+        print(self.svg.format(h=h, w=w, c=color))
+        print(self.svg)
+        return self.svg.format(h=h, w=w, c=color)
 
     def build_svg(self, color=None):
-        svg = self.adapt_svg(color)
-        return self.save_img(svg, QtCore.QSize(self.rect.width(), self.rect.height()))
+        if self.svg != "":
+            svg = self.adapt_svg(color)
+            return self.save_img(svg, QtCore.QSize(self.rect.width(), self.rect.height()))
 
     def parse_style(self, style, bgcol=None):
         if not bgcol:
@@ -61,14 +64,15 @@ class Widgets:
 
     def paint_back(self, color=None):
         if hasattr(self, 'svg'):
-            url = self.build_svg(color)
-            if hasattr(self, 'paint_pixmap'):
-                self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
-            style = self.parse_style(self.style, bgcol=self.background_col)
-            self.setStyleSheet(style + "\nbackground-image: url(" + url + ");")
-        else:
-            style = self.parse_style(self.style, bgcol=color)
-            self.setStyleSheet(style)
+            if self.svg is not None:
+                url = self.build_svg(color)
+                if hasattr(self, 'paint_pixmap'):
+                    self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
+                style = self.parse_style(self.style, bgcol=self.background_col)
+                self.setStyleSheet(style + "\nbackground-image: url(" + url + ");")
+                return
+        style = self.parse_style(self.style, bgcol=color)
+        self.setStyleSheet(style)
 
     def render_svg(self, svg, size):
         qByteArray = QtCore.QByteArray()

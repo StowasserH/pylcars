@@ -31,8 +31,8 @@ class Separator(Deco):
 
     def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, color, bar_width, style=None,
                  orientation=Orientation.top, svg=None):
-        if svg:
-            self.svg = svg
-        self.bar_width = bar_width + (rect.height() / 2);
+        if svg is None:
+            svg = Separator.svg
+        self.bar_width = bar_width + (rect.height() / 2)
         self.orientation = orientation
-        super(Separator, self).__init__(lcars, rect, color, style=style)
+        Deco.__init__(self, lcars, rect, color, style=style, svg=svg)

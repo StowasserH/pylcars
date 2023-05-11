@@ -15,4 +15,4 @@ class Block(Deco):
         return self.svg.format(h=h, w=w, c=c)
 
     def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, color, style=None):
-        super(Block, self).__init__(lcars, rect, color, style=style)
+        Deco.__init__(self,lcars, rect, color, style=style, svg=Block.svg)

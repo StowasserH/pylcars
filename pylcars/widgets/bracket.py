@@ -4,8 +4,8 @@ from .widgets import Widgets
 
 class Bracket(Widgets, QtWidgets.QPushButton):
 
-    def __init__(self, lcars:QtWidgets.QWidget, rect: QtCore.QRect, text, color, style=None):
-        Widgets.__init__(self, lcars)
+    def __init__(self, lcars:QtWidgets.QWidget, rect: QtCore.QRect, text, color, style=None, svg=None):
+        Widgets.__init__(self, lcars, svg)
         QtWidgets.QPushButton.__init__(self, lcars)
         self.setText(text)
         self.rect: QtCore.QRect = rect
