@@ -48,8 +48,8 @@ class Widgets:
         w = rect.width()
         if color is None:
             color = self.color
-        print(self.svg.format(h=h, w=w, c=color))
-        print(self.svg)
+        #print(self.svg.format(h=h, w=w, c=color))
+        #print(self.svg)
         return self.svg.format(h=h, w=w, c=color)
 
     def build_svg(self, color=None):

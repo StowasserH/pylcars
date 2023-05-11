@@ -20,12 +20,10 @@ class Deco(Widgets, QtWidgets.QLabel):
         self.show()
 
     def change_svg(self, svg: str):
-        print (svg)
         self.svg = svg
         if self.svg is not None:
             url = self.build_svg(self.color)
             if url:
-                print(url)
                 self.paint_pixmap = True
                 self.setPixmap(QtGui.QPixmap(os.path.join(os.getcwd(), url)))
 
