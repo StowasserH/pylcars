@@ -1,6 +1,11 @@
 # pylcars
 Create easily Star Trek influenced LCARS user interfaces
 
+## Package
+
+pylcars is a Python package designed for creating graphical interfaces in the style of the computer consoles from Star Trek. It was primarily developed for a media player that I have mounted on the wall in my kitchen. You can find more information about this project here:
+[Kueche](https://github.com/StowasserH/kueche)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes..
