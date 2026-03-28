@@ -1,3 +1,12 @@
+"""Menu and widget demonstration for PyLCARS.
+
+A comprehensive demo application showcasing the various widgets and features
+of the PyLCARS library, including menus, buttons, sliders, decorative elements,
+and interactive controls with visual feedback.
+
+Run this demo to see a fully functional LCARS interface with multiple pages
+and interactive elements.
+"""
 import random
 from PyQt5 import QtCore, QtGui, QtWidgets
 import subprocess
@@ -10,10 +19,29 @@ from pylcars import Colors
 
 
 class LcarsApp(pylcars.Lcars):
+    """Demo application showcasing PyLCARS widgets and features.
+
+    A full-featured demo that displays multiple pages of LCARS widgets including
+    buttons, sliders, decorative elements, and controls. Features include:
+    - Multi-page menu system
+    - Interactive button controls
+    - Horizontal and vertical sliders
+    - Custom SVG rendering examples
+    - Exit/shutdown sequence demo
+    """
     def exit_to_desk(self):
+        """Exit the application to desktop.
+
+        Terminates the application cleanly.
+        """
         exit(0)
 
     def exit_to_shutdown(self):
+        """Engage self-destruct sequence and exit after delay.
+
+        Displays a self-destruct message, disables the menu, and schedules
+        application exit after a 3-second countdown.
+        """
         self.exit_desk.hide()
         self.exit_down.hide()
         self.shutdown.show()
@@ -25,6 +53,11 @@ class LcarsApp(pylcars.Lcars):
         timer.start(3000)
 
     def __init__(self, parent=None):
+        """Initialize the demo application with all pages and widgets.
+
+        Args:
+            parent: Parent widget (default: None).
+        """
         pylcars.Lcars.__init__(self, parent)
         self.qurrent_title_timer = QtCore.QTimer(self)
         fields = ('BUTTONS', 'DECO', 'SLIDER', 'EXIT')
@@ -130,6 +163,14 @@ class LcarsApp(pylcars.Lcars):
         # self.showFullScreen()
 
     def menu_click(self, button_name):
+        """Handle menu page navigation with color feedback.
+
+        Changes menu color to alert when navigating to EXIT page,
+        and back to normal for other pages.
+
+        Args:
+            button_name: Name of the page to navigate to.
+        """
         if not self.menue.enabled:
             return
         if button_name == 'EXIT':
@@ -144,6 +185,13 @@ class LcarsApp(pylcars.Lcars):
             self.menue.menu_click(button_name)
 
     def button_callback(self, button_name):
+        """Provide visual feedback when buttons are clicked.
+
+        Randomly toggles or tickles a button with a random color.
+
+        Args:
+            button_name: Name of the button that was clicked.
+        """
         name, color = random.choice(list(self.colors.items()))
         if random.choice((1, 2)) == 1:
             self.menue.pages['BUTTONS'][button_name].tockle(color)
@@ -151,28 +199,38 @@ class LcarsApp(pylcars.Lcars):
             self.menue.pages['BUTTONS'][button_name].tickle(color)
 
     def updown_down(self):
+        """Decrement the first updown counter."""
         self.updown.start.setText(str(int(self.updown.start.text()) - 1) + " ")
 
     def updown_up(self):
+        """Increment the first updown counter."""
         self.updown.start.setText(str(int(self.updown.start.text()) + 1) + " ")
 
     def updown_click(self):
+        """Reset the first updown counter to zero."""
         self.updown.start.setText("0 ")
 
     def updown2_down(self):
+        """Decrement the second updown counter with visual feedback."""
         self.updown2.down.tickle(pylcars.Conditions.active)
         self.updown2.start.setText(str(int(self.updown2.start.text()) - 1) + " ")
 
     def updown2_up(self):
+        """Increment the second updown counter with visual feedback."""
         self.updown2.up.tickle(pylcars.Conditions.active)
         self.updown2.start.setText(str(int(self.updown2.start.text()) + 1) + " ")
 
     def updown2_click(self):
+        """Reset the second updown counter to zero with color toggle."""
         self.updown2.start.tockle(pylcars.Conditions.active)
         self.updown2.start.setText("0 ")
 
 
 def main():
+    """Run the menu demo application.
+
+    Creates and displays the demo LCARS interface with all widgets and pages.
+    """
     app = QtWidgets.QApplication(sys.argv)
     form = LcarsApp()
     form.show()

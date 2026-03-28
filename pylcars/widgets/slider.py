@@ -1,3 +1,9 @@
+"""Slider widget with LCARS styling.
+
+This module implements the Slider widget, a customizable slider control
+with support for both horizontal and vertical orientations, using LCARS colors
+and styling for visual consistency.
+"""
 from typing import Optional
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -6,6 +12,15 @@ from .. import Colors
 
 
 class Slider(Widgets, QtWidgets.QSlider):
+    """A styled slider control for LCARS interface.
+
+    A slider widget that combines QSlider functionality with LCARS styling.
+    Supports both horizontal and vertical orientations with customizable colors
+    for the groove, handle, and border.
+
+    Attributes:
+        default_style: Stylesheet template for the slider with color placeholders.
+    """
     default_style: str = """  QSlider::groove:horizontal {{
                             border: 2px solid;
                             height: 10px;
@@ -41,6 +56,17 @@ class Slider(Widgets, QtWidgets.QSlider):
     def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, orientation: int = QtCore.Qt.Horizontal,
                  color1: str = Colors.orange, color2: str = Colors.flieder, color3: str = Colors.orange,
                  style: Optional[str] = None) -> None:
+        """Initialize a Slider widget.
+
+        Args:
+            lcars: Parent LCARS window.
+            rect: Geometry rectangle for the slider.
+            orientation: Slider orientation (default: QtCore.Qt.Horizontal).
+            color1: Color for the groove (default: Colors.orange).
+            color2: Color for the border (default: Colors.flieder).
+            color3: Color for the handle (default: Colors.orange).
+            style: Optional custom stylesheet. If not provided, uses default_style.
+        """
         Widgets.__init__(self, lcars)
         QtWidgets.QSlider.__init__(self, lcars)
         # self.setText(text)
