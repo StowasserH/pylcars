@@ -10,7 +10,7 @@ from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 import os
 import xxhash
 import os.path
-from ..config import TICKLE_DURATION_MS
+from ..config import TICKLE_DURATION_MS, DEFAULT_FONT_NAME, DEFAULT_FONT_SIZE, FALLBACK_FONT_NAME, FALLBACK_FONT_SIZE
 
 
 class Widgets:
@@ -56,7 +56,7 @@ class Widgets:
         self.toggle = False
         self.lcars = lcars
         self.default_font = QtGui.QFont()
-        self.default_font_name = "LCARS"
+        self.default_font_name = DEFAULT_FONT_NAME
         self.set_default_font()
         self.image_folder = "background"
         self.background_col = "#000"
@@ -99,16 +99,33 @@ class Widgets:
             self.paint_back(self.color)
         self.toggle = not self.toggle
 
-    def set_default_font(self, fontname: Optional[str] = None, size: int = 26) -> None:
+    def set_default_font(self, fontname: Optional[str] = None, size: Optional[int] = None) -> None:
         """Set the default font for widgets.
+
+        Automatically falls back to a system font if the requested font is not available.
 
         Args:
             fontname: Font family name (default: "LCARS").
-            size: Font size in points (default: 26).
+            size: Font size in points. If None, uses appropriate default based on
+                whether the requested font is available.
         """
         if not fontname:
             fontname = self.default_font_name
+
+        # Try to set the requested font
         self.default_font.setFamily(fontname)
+
+        # Check if the font is available (exactMatch tests if the exact font is available)
+        if not self.default_font.exactMatch() and fontname == DEFAULT_FONT_NAME:
+            # Font not available, use fallback
+            self.default_font.setFamily(FALLBACK_FONT_NAME)
+            if size is None:
+                size = FALLBACK_FONT_SIZE
+        else:
+            # Font is available or custom font was requested
+            if size is None:
+                size = DEFAULT_FONT_SIZE
+
         self.default_font.setPointSize(size)
         self.default_font.setStrikeOut(False)
 

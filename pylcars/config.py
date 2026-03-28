@@ -17,8 +17,12 @@ TICKLE_DURATION_MS: int = 300
 SHUTDOWN_SEQUENCE_MS: int = 3000
 
 # Fonts
+# Note: LCARS font needs to be installed separately
+# If not available, falls back to system fonts
 DEFAULT_FONT_NAME: str = "LCARS"
 DEFAULT_FONT_SIZE: int = 26
+FALLBACK_FONT_NAME: str = "Courier"  # Fallback if LCARS unavailable
+FALLBACK_FONT_SIZE: int = 18  # Smaller fallback size to match original look
 
 # Demo menu defaults
 DEMO_MENU_WIDTH: int = 800
