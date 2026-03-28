@@ -4,27 +4,36 @@ This is the simplest possible example of creating a LCARS interface.
 It demonstrates basic window setup and adding a simple button widget.
 """
 
-from PyQt5 import QtWidgets
+import sys
+from PyQt5 import QtCore, QtWidgets
 from pylcars import Lcars, Bracket, Colors
 
 
 def main() -> None:
     """Create and display a minimal LCARS window with a single button."""
-    app = QtWidgets.QApplication([])
-
     # Create the main LCARS window
     window = Lcars()
     window.setWindowTitle("Simple LCARS Window")
 
-    # Add a button to the central widget
-    button = Bracket(window.centralwidget)
-    button.setText("HELLO LCARS")
-    button.set_color(Colors.orange)
-    button.setGeometry(300, 200, 200, 80)
+    # Create a button with required parameters: parent, rect, text, color
+    button_rect = QtCore.QRect(300, 200, 200, 80)
+    button = Bracket(
+        window.centralwidget,
+        rect=button_rect,
+        text="HELLO LCARS",
+        color=Colors.orange
+    )
 
-    # Show and run
+    # Show the window
     window.show()
-    app.exec_()
+
+    # This should be called by the module when run directly
+    # But we need QApplication to exist first
+    app = QtWidgets.QApplication.instance()
+    if app is None:
+        app = QtWidgets.QApplication(sys.argv)
+
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":

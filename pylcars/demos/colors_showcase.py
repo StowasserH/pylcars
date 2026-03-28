@@ -4,6 +4,7 @@ Displays all available LCARS colors with their names and hex values.
 Useful for selecting colors for your LCARS interface.
 """
 
+import sys
 from PyQt5 import QtWidgets, QtCore
 from pylcars import Lcars, Block, Textline, Colors
 from pylcars.config import DEFAULT_WINDOW_HEIGHT, DEFAULT_WINDOW_WIDTH
@@ -11,8 +12,7 @@ from pylcars.config import DEFAULT_WINDOW_HEIGHT, DEFAULT_WINDOW_WIDTH
 
 def main() -> None:
     """Display all LCARS colors with labels and hex values."""
-    app = QtWidgets.QApplication([])
-
+    # Create the main LCARS window
     window = Lcars()
     window.setWindowTitle("LCARS Colors")
 
@@ -42,19 +42,24 @@ def main() -> None:
         x = 30 + col * (block_width + 10)
         y = 40 + row * (block_height + 50)
 
-        # Color block
-        block = Block(window.centralwidget)
-        block.set_color(color)
-        block.setGeometry(x, y, block_width, block_height)
+        # Color block (Block: lcars, rect, color, optional style)
+        block_rect = QtCore.QRect(x, y, block_width, block_height)
+        block = Block(window.centralwidget, block_rect, color)
 
-        # Label with name and hex
-        label = Textline(window.centralwidget)
-        label.setText(f"{name}: {hex_value}")
-        label.set_color(Colors.leuchtblau)
-        label.setGeometry(x, y + block_height + 5, block_width, 30)
+        # Label with name and hex (Textline: lcars, rect, text_color, text_height)
+        label_text = f"{name}: {hex_value}"
+        label_rect = QtCore.QRect(x, y + block_height + 5, block_width, 30)
+        label = Textline(window.centralwidget, label_rect, Colors.leuchtblau, 14)
+        label.setText(label_text)
 
     window.show()
-    app.exec_()
+
+    # Get or create QApplication
+    app = QtWidgets.QApplication.instance()
+    if app is None:
+        app = QtWidgets.QApplication(sys.argv)
+
+    sys.exit(app.exec_())
 
 
 if __name__ == "__main__":
