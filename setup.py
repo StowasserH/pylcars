@@ -1,13 +1,6 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
-    name='pylcars',
-    version='0.0.1',
-    description='Create easily Star Trek influenced LCARS user interfaces',
-    license='MIT',
-    packages=['pylcars'],
-    author='Harald Stowasser',
-    author_email='lcars@stowasser.tv',
-    keywords=['lcars','qt','gui'],
-    url='https://github.com/StowasserH/pylcars'
+    packages=find_packages(include=['pylcars', 'pylcars.*']),
+    python_requires='>=3.8',
 )

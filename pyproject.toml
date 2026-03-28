@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=65.5.1", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pylcars"
+version = "0.1.0"
+description = "Create easily Star Trek influenced LCARS user interfaces"
+readme = "README.md"
+requires-python = ">=3.8"
+license = {text = "MIT"}
+authors = [{name = "Harald Stowasser", email = "lcars@stowasser.tv"}]
+keywords = ["lcars", "qt", "gui", "star-trek"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Software Development :: Libraries :: Python Modules",
+    "Topic :: Multimedia :: Graphics :: Viewers",
+]
+
+[project.dependencies]
+PyQt5 = "*"
+xxhash = "~=3.0.0"
+PyAudio = "~=0.2.11"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "pytest-qt>=4.0",
+    "flake8>=4.0",
+    "mypy>=1.0",
+    "black>=22.0",
+]
+
+[project.urls]
+Homepage = "https://github.com/StowasserH/pylcars"
+Repository = "https://github.com/StowasserH/pylcars.git"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["pylcars*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+addopts = "--strict-markers -v"
+markers = [
+    "gui: marks tests as requiring GUI components (deselect with '-m \"not gui\"')",
+]
+
+[tool.mypy]
+python_version = "3.8"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+disallow_incomplete_defs = false
+
+[tool.black]
+line-length = 100
+target-version = ['py38']
+
+[tool.flake8]
+max-line-length = 100
+exclude = [".git", "__pycache__", ".venv", "build", "dist", ".eggs"]
