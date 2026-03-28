@@ -7,6 +7,7 @@ capabilities through the Sound class.
 from typing import Optional
 from PyQt5 import QtCore, QtWidgets
 from .sound import Sound
+from .config import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
 
 
 class Lcars(Sound, QtWidgets.QMainWindow):
@@ -65,5 +66,5 @@ class Lcars(Sound, QtWidgets.QMainWindow):
         """
         QtWidgets.QMainWindow.__init__(self, parent)
         Sound.__init__(self)
-        self.mainWindowSize = QtCore.QSize(800, 480)
+        self.mainWindowSize = QtCore.QSize(DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT)
         self.setupUi(self)

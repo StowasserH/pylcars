@@ -7,6 +7,7 @@ and handles WAV file playback with proper resource cleanup.
 import pyaudio
 import wave
 from typing import Optional, List, Callable, Tuple, Any
+from .config import AUDIO_CHUNK_SIZE
 
 
 class Sound:
@@ -105,7 +106,7 @@ class Sound:
             return
 
         try:
-            chunk: int = 256
+            chunk: int = AUDIO_CHUNK_SIZE
             wf: wave.Wave_read = wave.open(file, 'rb')
 
             # define callback (2)

@@ -10,6 +10,7 @@ from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 import os
 import xxhash
 import os.path
+from ..config import TICKLE_DURATION_MS
 
 
 class Widgets:
@@ -73,7 +74,7 @@ class Widgets:
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.tickle_done)
         timer.setSingleShot(True)
-        timer.start(300)
+        timer.start(TICKLE_DURATION_MS)
 
     def tickle_done(self) -> None:
         """Revert widget color to original after tickle effect.
