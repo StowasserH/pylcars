@@ -11,6 +11,11 @@ requires-python = ">=3.8"
 license = {text = "MIT"}
 authors = [{name = "Harald Stowasser", email = "lcars@stowasser.tv"}]
 keywords = ["lcars", "qt", "gui", "star-trek"]
+dependencies = [
+    "PyQt5",
+    "xxhash~=3.0.0",
+    "PyAudio~=0.2.11",
+]
 classifiers = [
     "Development Status :: 3 - Alpha",
     "Intended Audience :: Developers",
@@ -25,11 +30,6 @@ classifiers = [
     "Topic :: Software Development :: Libraries :: Python Modules",
     "Topic :: Multimedia :: Graphics :: Viewers",
 ]
-
-[project.dependencies]
-PyQt5 = "*"
-xxhash = "~=3.0.0"
-PyAudio = "~=0.2.11"
 
 [project.optional-dependencies]
 dev = [

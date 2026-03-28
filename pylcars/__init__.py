@@ -15,5 +15,5 @@ from .widgets.textline import Textline
 from .sound import Sound
 
 
-def joke():
+def joke() -> str:
     return (u'SELECT * FROM joke ORDER BY RAND() DESC')

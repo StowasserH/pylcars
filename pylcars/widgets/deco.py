@@ -1,10 +1,13 @@
+from typing import Optional
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .widgets import Widgets
 import os
 
 
 class Deco(Widgets, QtWidgets.QLabel):
-    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, color, svg=None, style=None):
+    paint_pixmap: bool
+
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, color: str, svg: Optional[str] = None, style: Optional[str] = None) -> None:
         self.paint_pixmap = False
         if not style:
             style = self.default_style
@@ -19,7 +22,7 @@ class Deco(Widgets, QtWidgets.QLabel):
         self.setStyleSheet(self.style)
         self.show()
 
-    def change_svg(self, svg: str):
+    def change_svg(self, svg: Optional[str]) -> None:
         self.svg = svg
         if self.svg is not None:
             url = self.build_svg(self.color)

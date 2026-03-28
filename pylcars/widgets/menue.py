@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from typing import Any
+from typing import Any, Callable, Dict, List, Optional
 
 from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 from .separator import Separator
@@ -10,8 +10,23 @@ from .block import Block
 from functools import partial
 
 
-class Menue():
-    def menu_click(self, button_name="\n"):
+class Menue:
+    lcars: QtWidgets.QWidget
+    color: str
+    color_active: str
+    enabled: bool
+    buttons: Dict[str, Bracket]
+    pages: Dict[str, Dict[str, Any]]
+    fields: List[str]
+    top: Separator
+    bot: Separator
+    linetop: Block
+    linebot: Block
+    fill: Block
+    active_page: str
+    button_callback: Callable[[str], None]
+
+    def menu_click(self, button_name: str = "\n") -> None:
         if not self.enabled:
             return
         if self.active_page != button_name:
@@ -22,17 +37,17 @@ class Menue():
             self.buttons[self.active_page].tockle(self.color_active)
             self.blend_in(self.active_page)
 
-    def blend_out(self, page):
+    def blend_out(self, page: str) -> None:
         widgets = self.pages[page]
         for widget in widgets:
             widgets[widget].hide()
 
-    def blend_in(self, page):
+    def blend_in(self, page: str) -> None:
         widgets = self.pages[page]
         for widget in widgets:
             widgets[widget].show()
 
-    def paint_back(self, color):
+    def paint_back(self, color: str) -> None:
         for button in self.fields:
             self.buttons[button].paint_back(color)
         self.top.paint_back(color)
@@ -41,11 +56,11 @@ class Menue():
         self.linebot.paint_back(color)
         self.fill.paint_back(color)
 
-    def setEnabled(self, enabled):
+    def setEnabled(self, enabled: bool) -> None:
         self.enabled = enabled
 
-    def __init__(self, lcars: QtWidgets.QWidget, fields, rect: QtCore.QRect, button_size, color_use=Conditions.use,
-                 color_active=Conditions.active, button_space: int = 4, button_callback=None):
+    def __init__(self, lcars: QtWidgets.QWidget, fields: List[str], rect: QtCore.QRect, button_size: QtCore.QSize, color_use: str = Conditions.use,
+                 color_active: str = Conditions.active, button_space: int = 4, button_callback: Optional[Callable[[str], None]] = None) -> None:
         self.lcars: QtWidgets.QWidget = lcars
         self.color = color_use
         self.color_active = color_active

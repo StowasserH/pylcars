@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from typing import Optional
 from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 import os
 import xxhash
@@ -6,9 +7,19 @@ import os.path
 
 
 class Widgets:
-    default_style = "border: none;\nbackground: {bg};\nText-align: right;"
+    default_style: str = "border: none;\nbackground: {bg};\nText-align: right;"
+    svg: Optional[str]
+    toggle: bool
+    lcars: QtWidgets.QWidget
+    default_font: QtGui.QFont
+    default_font_name: str
+    image_folder: str
+    background_col: str
+    style: str
+    color: str
+    rect: QtCore.QRect
 
-    def __init__(self, lcars: QtWidgets.QWidget, svg=None):
+    def __init__(self, lcars: QtWidgets.QWidget, svg: Optional[str] = None) -> None:
         self.svg = svg
         self.toggle = False
         self.lcars = lcars
@@ -18,31 +29,31 @@ class Widgets:
         self.image_folder = "background"
         self.background_col = "#000"
 
-    def tickle(self, color):
+    def tickle(self, color: str) -> None:
         self.paint_back(color)
         timer = QtCore.QTimer(self)
         timer.timeout.connect(self.tickle_done)
         timer.setSingleShot(True)
         timer.start(300)
 
-    def tickle_done(self):
+    def tickle_done(self) -> None:
         self.paint_back(self.color)
 
-    def tockle(self, color=None):
+    def tockle(self, color: Optional[str] = None) -> None:
         if not self.toggle and color:
             self.paint_back(color)
         else:
             self.paint_back(self.color)
         self.toggle = not self.toggle
 
-    def set_default_font(self, fontname=None, size=26):
+    def set_default_font(self, fontname: Optional[str] = None, size: int = 26) -> None:
         if not fontname:
             fontname = self.default_font_name
         self.default_font.setFamily(fontname)
         self.default_font.setPointSize(size)
         self.default_font.setStrikeOut(False)
 
-    def adapt_svg(self, color=None):
+    def adapt_svg(self, color: Optional[str] = None) -> str:
         rect: QtCore.QRect = self.rect
         h = rect.height()
         w = rect.width()
@@ -52,17 +63,18 @@ class Widgets:
         #print(self.svg)
         return self.svg.format(h=h, w=w, c=color)
 
-    def build_svg(self, color=None):
+    def build_svg(self, color: Optional[str] = None) -> Optional[str]:
         if self.svg != "":
             svg = self.adapt_svg(color)
             return self.save_img(svg, QtCore.QSize(self.rect.width(), self.rect.height()))
+        return None
 
-    def parse_style(self, style, bgcol=None):
+    def parse_style(self, style: str, bgcol: Optional[str] = None) -> str:
         if not bgcol:
             bgcol = self.background_col
         return style.format(bg=bgcol)
 
-    def paint_back(self, color=None):
+    def paint_back(self, color: Optional[str] = None) -> None:
         if hasattr(self, 'svg'):
             if self.svg is not None:
                 url = self.build_svg(color)
@@ -74,7 +86,7 @@ class Widgets:
         style = self.parse_style(self.style, bgcol=color)
         self.setStyleSheet(style)
 
-    def render_svg(self, svg, size):
+    def render_svg(self, svg: str, size: QtCore.QSize) -> QtGui.QImage:
         qByteArray = QtCore.QByteArray()
         qByteArray.append(svg)
         renderer = QtSvg.QSvgRenderer(qByteArray)
@@ -86,7 +98,7 @@ class Widgets:
         painter.end()
         return qim
 
-    def save_img(self, svg, size):
+    def save_img(self, svg: str, size: QtCore.QSize) -> str:
         name = xxhash.xxh64(svg + str(size)).hexdigest()
         path = os.path.join(self.image_folder, name[:3], name[3:6])
         filename = name[6:] + ".png"

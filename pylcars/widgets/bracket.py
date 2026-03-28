@@ -1,10 +1,11 @@
+from typing import Optional
 from PyQt5 import QtCore, QtGui, QtWidgets
 from .widgets import Widgets
 
 
 class Bracket(Widgets, QtWidgets.QPushButton):
 
-    def __init__(self, lcars:QtWidgets.QWidget, rect: QtCore.QRect, text, color, style=None, svg=None):
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text: str, color: str, style: Optional[str] = None, svg: Optional[str] = None) -> None:
         Widgets.__init__(self, lcars, svg)
         QtWidgets.QPushButton.__init__(self, lcars)
         self.setText(text)

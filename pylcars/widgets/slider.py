@@ -1,3 +1,4 @@
+from typing import Optional
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from .widgets import Widgets
@@ -5,11 +6,11 @@ from .. import Colors
 
 
 class Slider(Widgets, QtWidgets.QSlider):
-    default_style = """  QSlider::groove:horizontal {{
+    default_style: str = """  QSlider::groove:horizontal {{
                             border: 2px solid;
                             height: 10px;
                             background-color: {col1:s};
-                            margin: 2px 0; 
+                            margin: 2px 0;
                             }}
                         QSlider::handle:horizontal {{
                             background-color: {col3:s};
@@ -24,7 +25,7 @@ class Slider(Widgets, QtWidgets.QSlider):
                             border: 2px solid;
                             width: 10px;
                             background-color: {col1:s};
-                            margin: 0 2px; 
+                            margin: 0 2px;
                             }}
                         QSlider::handle:vertical {{
                             background-color: {col3:s};
@@ -34,12 +35,12 @@ class Slider(Widgets, QtWidgets.QSlider):
                             margin: 0px -15px;
                             border-radius: 6px;
                             border-color: {col2:s};;
-                            }}                            
+                            }}
                         """
 
-    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, orientation=QtCore.Qt.Horizontal,
-                 color1=Colors.orange, color2=Colors.flieder, color3=Colors.orange,
-                 style=None):
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, orientation: int = QtCore.Qt.Horizontal,
+                 color1: str = Colors.orange, color2: str = Colors.flieder, color3: str = Colors.orange,
+                 style: Optional[str] = None) -> None:
         Widgets.__init__(self, lcars)
         QtWidgets.QSlider.__init__(self, lcars)
         # self.setText(text)

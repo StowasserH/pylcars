@@ -1,10 +1,13 @@
+from typing import Optional, Union
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 from pylcars import Deco
 
 
 class Textline(Deco):
-    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text_color, text_height, svg=None, style=None):
+    mainstyle: str
+
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text_color: str, text_height: Union[float, int], svg: Optional[str] = None, style: Optional[str] = None) -> None:
         if not style:
             style = self.default_style
         self.mainstyle = style
@@ -13,5 +16,5 @@ class Textline(Deco):
         newfont.setLetterSpacing(QtGui.QFont.AbsoluteSpacing, 1)
         self.setFont(newfont)
 
-    def change_color(self, color):
+    def change_color(self, color: str) -> None:
         self.setStyleSheet(self.mainstyle + "color: " + color + ";")

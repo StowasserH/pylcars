@@ -1,3 +1,4 @@
+from typing import Optional, Union
 from PyQt5 import QtWidgets, QtCore
 
 from pylcars.orientation import Orientation
@@ -5,12 +6,13 @@ from .bracket import Bracket
 
 
 class Semicircle(Bracket):
-    svg = ('<svg height="{h}" width="{w}">'
+    svg: str = ('<svg height="{h}" width="{w}">'
            '<circle cx="{r}" cy="{r}" r="{r}" fill="{c}" />'
            '<rect height="{rh}" width="{rw}" x="{rx}" y="{ry}" fill="{c}" />'
            '</svg>')
+    orientation: int
 
-    def adapt_svg(self, color=None):
+    def adapt_svg(self, color: Optional[str] = None) -> str:
         rect = self.geometry()
         rh = h = rect.height()
         rw = w = rect.width()
@@ -29,6 +31,6 @@ class Semicircle(Bracket):
             c = self.color
         return self.svg.format(h=h, w=w, r=r, rh=rh, rw=rw, rx=rx, ry=ry, c=c)
 
-    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text, color, orientation, style=None):
+    def __init__(self, lcars: QtWidgets.QWidget, rect: QtCore.QRect, text: str, color: str, orientation: int, style: Optional[str] = None) -> None:
         self.orientation = orientation
         Bracket.__init__(self, lcars, rect, text, color, style, svg=Semicircle.svg)

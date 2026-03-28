@@ -1,28 +1,31 @@
 # -*- coding: utf-8 -*-
+from typing import Optional
 from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
 from .sound import Sound
 
 try:
     _fromUtf8 = QtCore.QString.fromUtf8
 except AttributeError:
-    def _fromUtf8(s):
+    def _fromUtf8(s: str) -> str:
         return s
 
 try:
     _encoding = QtWidgets.QApplication.UnicodeUTF8
 
 
-    def _translate(context, text, disambig):
+    def _translate(context: str, text: str, disambig: Optional[str]) -> str:
         return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
 except AttributeError:
-    def _translate(context, text, disambig):
+    def _translate(context: str, text: str, disambig: Optional[str]) -> str:
         return QtWidgets.QApplication.translate(context, text, disambig)
 
 
 class Lcars(Sound, QtWidgets.QMainWindow):
-    default_style = "border: none;\nbackground: #000;\n"
+    default_style: str = "border: none;\nbackground: #000;\n"
+    mainWindowSize: QtCore.QSize
+    centralwidget: QtWidgets.QWidget
 
-    def setupUi(self, MainWindow):
+    def setupUi(self, MainWindow: QtWidgets.QMainWindow) -> None:
         MainWindow.setObjectName(_fromUtf8("MainWindow"))
         MainWindow.resize(self.mainWindowSize)
         MainWindow.setStyleSheet(self.default_style)
@@ -34,11 +37,11 @@ class Lcars(Sound, QtWidgets.QMainWindow):
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, MainWindow: QtWidgets.QMainWindow) -> None:
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
 
-    def __init__(self, parent=None):
-        QtWidgets.QMainWindow.__init__(self,parent)
+    def __init__(self, parent: Optional[QtWidgets.QWidget] = None) -> None:
+        QtWidgets.QMainWindow.__init__(self, parent)
         Sound.__init__(self)
         # self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
         # "background-image: url(:/AddButton.png);"

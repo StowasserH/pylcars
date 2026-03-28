@@ -3,14 +3,14 @@
 from .enumeration import Enumeration
 
 
-class Colors(Enumeration):
-    orange = '#f90'
-    flieder = '#c9c'
-    blaugrau= '#99c'
-    rostbraun= '#c66'
-    beige= '#fc9'
-    leuchtblau= '#99f'
-    apricot= '#f96'
-    pink= '#c69'
-    hellorange= '#fc4'
-    rot ='#c00'
+class Colors(Enumeration):  # type: ignore
+    orange: str = '#f90'
+    flieder: str = '#c9c'
+    blaugrau: str = '#99c'
+    rostbraun: str = '#c66'
+    beige: str = '#fc9'
+    leuchtblau: str = '#99f'
+    apricot: str = '#f96'
+    pink: str = '#c69'
+    hellorange: str = '#fc4'
+    rot: str = '#c00'

@@ -3,8 +3,8 @@
 from .enumeration import Enumeration
 
 
-class Orientation(Enumeration):
-    left = 0
-    right = 1
-    top = 2
-    bottom = 3
+class Orientation(Enumeration):  # type: ignore
+    left: int = 0
+    right: int = 1
+    top: int = 2
+    bottom: int = 3
