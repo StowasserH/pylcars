@@ -45,7 +45,7 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 
 - Python 3.8+
 - Git
-- Virtual environment tool (`venv`)
+- Virtual environment tool (`.venv`)
 
 ### Setting Up Your Development Environment
 
@@ -59,8 +59,8 @@ Enhancement suggestions are tracked as GitHub issues. When creating an enhanceme
 2. **Create a virtual environment**
 
    ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   python3 -m venv .venv
+   source .venv/bin/activate  # On Windows: .venv\Scripts\activate
    ```
 
 3. **Install development dependencies**

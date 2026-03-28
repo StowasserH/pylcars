@@ -277,8 +277,8 @@ git clone https://github.com/StowasserH/pylcars.git
 cd pylcars
 
 # Create virtual environment
-python3 -m venv venv
-source venv/bin/activate  # Windows: venv\Scripts\activate
+python3 -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
 
 # Install with development dependencies
 pip install -e ".[dev]"
