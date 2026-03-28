@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 """Main LCARS window class for PyQt5 applications.
 
 This module provides the primary window class for creating LCARS-themed
@@ -6,24 +5,8 @@ interfaces. It combines PyQt5's main window functionality with audio playback
 capabilities through the Sound class.
 """
 from typing import Optional
-from PyQt5 import QtCore, QtGui, QtSvg, QtWidgets
+from PyQt5 import QtCore, QtWidgets
 from .sound import Sound
-
-try:
-    _fromUtf8 = QtCore.QString.fromUtf8
-except AttributeError:
-    def _fromUtf8(s: str) -> str:
-        return s
-
-try:
-    _encoding = QtWidgets.QApplication.UnicodeUTF8
-
-
-    def _translate(context: str, text: str, disambig: Optional[str]) -> str:
-        return QtWidgets.QApplication.translate(context, text, disambig, _encoding)
-except AttributeError:
-    def _translate(context: str, text: str, disambig: Optional[str]) -> str:
-        return QtWidgets.QApplication.translate(context, text, disambig)
 
 
 class Lcars(Sound, QtWidgets.QMainWindow):
@@ -51,12 +34,12 @@ class Lcars(Sound, QtWidgets.QMainWindow):
         Args:
             MainWindow: The main window to configure.
         """
-        MainWindow.setObjectName(_fromUtf8("MainWindow"))
+        MainWindow.setObjectName("MainWindow")
         MainWindow.resize(self.mainWindowSize)
         MainWindow.setStyleSheet(self.default_style)
         MainWindow.setDocumentMode(False)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
-        self.centralwidget.setObjectName(_fromUtf8("centralwidget"))
+        self.centralwidget.setObjectName("centralwidget")
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -68,7 +51,7 @@ class Lcars(Sound, QtWidgets.QMainWindow):
         Args:
             MainWindow: The main window to configure.
         """
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow", None))
+        MainWindow.setWindowTitle("MainWindow")
 
     def __init__(self, parent: Optional[QtWidgets.QWidget] = None) -> None:
         """Initialize the LCARS main window.
@@ -82,10 +65,5 @@ class Lcars(Sound, QtWidgets.QMainWindow):
         """
         QtWidgets.QMainWindow.__init__(self, parent)
         Sound.__init__(self)
-        # self.defaultStyle=_fromUtf8("border: none;\nbackground: #000;\n")
-        # "background-image: url(:/AddButton.png);"
-        # "background-repeat: no-repeat;"
-        # "background-position: center center"
-
         self.mainWindowSize = QtCore.QSize(800, 480)
         self.setupUi(self)
