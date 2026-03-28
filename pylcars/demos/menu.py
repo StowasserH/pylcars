@@ -15,8 +15,6 @@ from functools import partial
 import pylcars
 import sys
 
-from pylcars import Colors
-
 
 class LcarsApp(pylcars.Lcars):
     """Demo application showcasing PyLCARS widgets and features.
@@ -67,13 +65,13 @@ class LcarsApp(pylcars.Lcars):
         #
         #   The Slider -Page
         # _________________________________________________________________
-        self.vslider = pylcars.Slider(self, QtCore.QRect(140, 44, 180, 40),QtCore.Qt.Horizontal)
+        self.vslider = pylcars.Slider(self, QtCore.QRect(140, 44, 180, 40), QtCore.Qt.Horizontal)
         self.vslider.setInvertedAppearance(True)
         self.vslider.setInvertedControls(True)
         self.vslider.hide()
         self.menue.pages['SLIDER']['slider'] = self.vslider
 
-        self.hslider = pylcars.Slider(self, QtCore.QRect(140, 84, 40, 180),QtCore.Qt.Vertical)
+        self.hslider = pylcars.Slider(self, QtCore.QRect(140, 84, 40, 180), QtCore.Qt.Vertical)
         self.hslider.setInvertedAppearance(True)
         self.hslider.setInvertedControls(True)
         self.hslider.hide()
