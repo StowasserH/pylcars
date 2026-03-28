@@ -158,6 +158,8 @@ class LcarsApp(pylcars.Lcars):
         self.menue.pages['EXIT']['exit_down'] = self.exit_down
         self.exit_desk.hide()
         self.exit_down.hide()
+        # Show the BUTTONS page by default
+        self.menue.blend_in('BUTTONS')
         # _________________________________________________________________
         #
         #   End of the initialisation
