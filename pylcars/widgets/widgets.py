@@ -12,6 +12,9 @@ import xxhash
 import os.path
 from ..config import TICKLE_DURATION_MS, DEFAULT_FONT_NAME, DEFAULT_FONT_SIZE, FALLBACK_FONT_NAME, FALLBACK_FONT_SIZE
 
+# Global flag to track if fallback font warning has been shown
+_FALLBACK_FONT_WARNING_SHOWN = False
+
 
 class Widgets:
     """Base class for LCARS widgets with SVG rendering support.
@@ -99,6 +102,14 @@ class Widgets:
             self.paint_back(self.color)
         self.toggle = not self.toggle
 
+    def is_using_fallback_font(self) -> bool:
+        """Check if the widget is using the fallback font.
+
+        Returns:
+            True if using fallback font (LCARS not available), False if using LCARS font.
+        """
+        return self.default_font.family() == FALLBACK_FONT_NAME
+
     def set_default_font(self, fontname: Optional[str] = None, size: Optional[int] = None) -> None:
         """Set the default font for widgets.
 
@@ -109,6 +120,8 @@ class Widgets:
             size: Font size in points. If None, uses appropriate default based on
                 whether the requested font is available.
         """
+        global _FALLBACK_FONT_WARNING_SHOWN
+
         if not fontname:
             fontname = self.default_font_name
 
@@ -121,6 +134,21 @@ class Widgets:
             self.default_font.setFamily(FALLBACK_FONT_NAME)
             if size is None:
                 size = FALLBACK_FONT_SIZE
+
+            # Show warning only once
+            if not _FALLBACK_FONT_WARNING_SHOWN:
+                print("\n" + "=" * 70)
+                print("⚠️  WARNING: LCARS font not found!")
+                print("=" * 70)
+                print(f"The '{DEFAULT_FONT_NAME}' font is not installed on this system.")
+                print(f"Falling back to '{FALLBACK_FONT_NAME}' font at {FALLBACK_FONT_SIZE}pt")
+                print("\nTo install the LCARS font:")
+                print("  1. Download from: https://www.dafont.com/lcars.font")
+                print("  2. Extract to: ~/.local/share/fonts/")
+                print("  3. Run: fc-cache -f ~/.local/share/fonts")
+                print("  4. Restart the application")
+                print("=" * 70 + "\n")
+                _FALLBACK_FONT_WARNING_SHOWN = True
         else:
             # Font is available or custom font was requested
             if size is None:
