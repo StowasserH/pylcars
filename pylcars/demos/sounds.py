@@ -39,7 +39,7 @@ class LcarsApp(pylcars.Lcars):
                 button.clicked.connect(partial(self.button_callback, button_name=name))
                 button.show()
                 self.buttons[name]=button
-        self.setPlay_sound(True)
+        self.set_play_sound(True)
 
     def button_callback(self, button_name):
         """Play a sound file and provide visual feedback.

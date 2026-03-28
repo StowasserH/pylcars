@@ -171,5 +171,4 @@ class Menue:
         self.linetop = Block(lcars, QtCore.QRect(lx, ry, lw, int(bh / 2)), Conditions.use)
         bs: int = int(rh - bh / 2)
         self.linebot = Block(lcars, QtCore.QRect(lx, bs, lw, int(bh / 2)), Conditions.use)
-        # pos += bh + button_space
         self.fill = Block(lcars, QtCore.QRect(rx, pos, bw, int(rh - bh - pos - button_space)), Conditions.use)

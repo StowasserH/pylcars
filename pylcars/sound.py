@@ -127,7 +127,7 @@ class Sound:
         except (FileNotFoundError, wave.Error) as e:
             print(f"Error playing sound '{file}': {e}")
 
-    def setPlay_sound(self, play_sound: bool = True) -> None:
+    def set_play_sound(self, play_sound: bool = True) -> None:
         """Enable or disable sound playback capability.
 
         Initializes or terminates the PyAudio instance based on the desired state.

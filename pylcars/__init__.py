@@ -29,11 +29,20 @@ from .widgets.slider import Slider
 from .widgets.textline import Textline
 from .sound import Sound
 
-
-def joke() -> str:
-    """Return a humorous database query string.
-
-    Returns:
-        A SQL query string for retrieving a random joke.
-    """
-    return (u'SELECT * FROM joke ORDER BY RAND() DESC')
+__all__ = [
+    "Lcars",
+    "Enumeration",
+    "Conditions",
+    "Colors",
+    "Orientation",
+    "Semicircle",
+    "Deco",
+    "Block",
+    "Separator",
+    "Bracket",
+    "Menue",
+    "Updown",
+    "Slider",
+    "Textline",
+    "Sound",
+]

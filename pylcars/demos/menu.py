@@ -77,7 +77,6 @@ class LcarsApp(pylcars.Lcars):
         self.hslider.setInvertedControls(True)
         self.menue.pages['SLIDER']['hslider'] = self.hslider
 
-        # self.vslider.setTickPosition(QtWidgets.QSlider.TicksBothSides)
         # _________________________________________________________________
         #
         #   The Buttons -Page
@@ -111,6 +110,7 @@ class LcarsApp(pylcars.Lcars):
                                                          , "{c} {n}".format(c=name, n=buttonname), color)
                 self.menue.pages['BUTTONS'][buttonname] = self.buttons[row][col]
                 self.buttons[row][col].clicked.connect(partial(self.button_callback, button_name=buttonname))
+
         # _________________________________________________________________
         #
         #   The Deco -Page
@@ -160,7 +160,6 @@ class LcarsApp(pylcars.Lcars):
         #
         #   End of the initialisation
         # _________________________________________________________________
-        # self.showFullScreen()
 
     def menu_click(self, button_name):
         """Handle menu page navigation with color feedback.

@@ -69,11 +69,8 @@ class Slider(Widgets, QtWidgets.QSlider):
         """
         Widgets.__init__(self, lcars)
         QtWidgets.QSlider.__init__(self, lcars)
-        # self.setText(text)
         self.rect: QtCore.QRect = rect
         self.setOrientation(orientation)
-        # self.setFont(self.default_font)
-        # self.setFlat(True)
         self.setGeometry(rect)
         if not style:
             if orientation == QtCore.Qt.Horizontal:
@@ -82,8 +79,5 @@ class Slider(Widgets, QtWidgets.QSlider):
             else:
                 style = self.default_style.format(width=rect.width(), height=int(rect.width() / 2),
                                                   col1=color1, col2=color2, col3=color3)
-        # self.style = style
         self.setStyleSheet(style)
-        # self.color = color
-        # self.paint_back(color=self.color)
         self.show()
