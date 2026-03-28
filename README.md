@@ -2,93 +2,136 @@
 
 ![Tests](https://github.com/StowasserH/pylcars/actions/workflows/tests.yml/badge.svg)
 ![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)
-![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue)
+![Python 3.8+](https://img.shields.io/badge/Python-3.8%2B-blue.svg)
+![Version 0.1.0](https://img.shields.io/badge/Version-0.1.0-green.svg)
 
-Create easily Star Trek influenced LCARS user interfaces with Python and PyQt5.
+> Create Star Trek LCARS-inspired user interfaces with Python and PyQt5.
 
-**PyLCARS** is a Python library for building retro-futuristic user interfaces inspired by the LCARS (Library Computer Access and Retrieval System) from Star Trek. It provides a collection of customizable widgets styled in the iconic 1990s aesthetic, complete with SVG rendering, animation effects, and audio feedback.
+**PyLCARS** is a Python library that brings the iconic LCARS (Library Computer Access and Retrieval System) aesthetic from Star Trek to modern applications. Build retro-futuristic UIs with pre-styled widgets, smooth animations, SVG rendering, and integrated audio feedback.
 
-## Features
-
-- 🚀 **LCARS-themed Widgets** - Pre-styled UI components matching the classic Star Trek aesthetic
-- 🎨 **Customizable Colors** - Built-in LCARS color palette with easy customization
-- 🖼️ **SVG Support** - Dynamic vector graphics rendering for crisp scaling
-- 🔊 **Audio Integration** - Built-in WAV file playback with PyAudio
-- ⚡ **Animation Effects** - Visual feedback effects like "tickle" highlighting
-- 📦 **Easy to Use** - Simple API for creating LCARS interfaces
-- ✅ **Modern Python** - Full type hints, comprehensive documentation, extensive tests
-
-## Quick Start
-
-### Installation
-
-#### Prerequisites
-
-- Python 3.8 or higher
-- PyQt5
-- PortAudio libraries (for audio playback)
-
-#### Debian/Ubuntu
-
-```bash
-sudo apt-get update
-sudo apt-get install -y python3 python3-pip python3-pyqt5 portaudio19-dev
-pip install pylcars
-```
-
-#### macOS
-
-```bash
-brew install python3 portaudio
-pip install PyQt5 pylcars
-```
-
-#### Windows
-
-1. Install Python 3.8+ from [python.org](https://python.org)
-2. Install PyAudio: `pip install pipwin && pipwin install portaudio && pip install pyaudio`
-3. Install PyLCARS: `pip install pylcars`
-
-### Basic Example
+## 🚀 Quick Start
 
 ```python
 from PyQt5 import QtWidgets
 from pylcars import Lcars, Bracket, Colors
 
 app = QtWidgets.QApplication([])
-
-# Create main window
 window = Lcars()
-window.setWindowTitle("LCARS Interface")
 
-# Add a button
 button = Bracket(window.centralwidget)
+button.setText("ENGAGE")
 button.set_color(Colors.orange)
-button.setText("ACTIVATE")
-button.setGeometry(100, 100, 200, 50)
+button.setGeometry(300, 200, 200, 50)
 
 window.show()
 app.exec_()
 ```
 
-## Available Widgets
+## ✨ Features
 
-| Widget | Purpose |
-|--------|---------|
-| **Lcars** | Main window class for LCARS applications |
-| **Bracket** | Clickable button with corner bracket styling |
-| **Block** | Simple colored rectangle |
-| **Deco** | Decorative label with optional SVG |
-| **Separator** | Directional divider line |
-| **Semicircle** | Rounded bracket in multiple directions |
-| **Slider** | Horizontal/vertical slider control |
-| **Textline** | Text label with color support |
-| **Updown** | Up/down navigation buttons with center button |
-| **Menue** | Multi-page menu system with tab navigation |
+- **🎨 LCARS-themed Widgets** - Pre-styled UI components matching the Star Trek aesthetic
+- **🖼️ SVG Support** - Dynamic vector graphics with automatic caching
+- **🔊 Audio Integration** - Built-in WAV file playback with PyAudio
+- **⚡ Animation Effects** - Visual feedback including "tickle" highlighting
+- **🎯 Type-Safe** - Full type hints for IDE support and static analysis
+- **📚 Well-Documented** - Comprehensive docstrings and usage guides
+- **✅ Tested** - Pytest suite with GitHub Actions CI/CD
+- **🔧 Customizable** - Easy theming and configuration
+- **📦 Modern Python** - Pure Python 3.8+ with minimal dependencies
 
-## Colors
+## 📦 Installation
 
-PyLCARS includes an authentic LCARS color palette:
+### Prerequisites
+
+- Python 3.8 or higher
+- PyQt5
+- PortAudio (for audio support)
+
+### Ubuntu/Debian
+
+```bash
+sudo apt-get update
+sudo apt-get install -y python3 python3-pip python3-pyqt5 portaudio19-dev
+
+pip install pylcars
+```
+
+### macOS
+
+```bash
+brew install python3 portaudio
+pip install PyQt5 pylcars
+```
+
+### Windows
+
+1. Install Python 3.8+ from [python.org](https://www.python.org)
+2. Install PyAudio and PyQt5:
+   ```bash
+   pip install PyQt5 pylcars
+   ```
+   For audio support, use `pipwin`:
+   ```bash
+   pip install pipwin
+   pipwin install portaudio
+   pip install pyaudio
+   ```
+
+### From Source
+
+```bash
+git clone https://github.com/StowasserH/pylcars.git
+cd pylcars
+pip install -e .
+```
+
+## 📖 Documentation
+
+- **[Usage Guide](USAGE.md)** - Complete usage documentation with examples
+- **[Architecture](ARCHITECTURE.md)** - System design and internal structure
+- **[Contributing](CONTRIBUTING.md)** - Development guidelines
+- **[Changelog](CHANGELOG.md)** - Version history and updates
+
+## 🎮 Demo Applications
+
+Try the included examples:
+
+```bash
+# Interactive widget showcase
+python -m pylcars.demos.menu
+
+# Color palette display
+python -m pylcars.demos.colors_showcase
+
+# All widgets in one place
+python -m pylcars.demos.widgets_showcase
+
+# Custom theme example
+python -m pylcars.demos.custom_theme
+
+# Minimal "Hello LCARS" window
+python -m pylcars.demos.simple_window
+
+# Audio playback grid
+python -m pylcars.demos.sounds
+```
+
+## 🧩 Available Widgets
+
+| Widget | Purpose | Example |
+|--------|---------|---------|
+| **Bracket** | Clickable button with corner styling | `Bracket(window.centralwidget).setText("CLICK")` |
+| **Block** | Simple colored rectangle | `Block(window.centralwidget).set_color(Colors.orange)` |
+| **Deco** | Decorative label with SVG | `Deco(window.centralwidget).setText("Title")` |
+| **Separator** | Directional divider line | `Separator(window.centralwidget).setOrientation(Orientation.right)` |
+| **Slider** | Interactive value slider | `Slider(window.centralwidget).setRange(0, 100)` |
+| **Textline** | Text label with color | `Textline(window.centralwidget).setText("Status")` |
+| **Updown** | Navigation buttons with center | `Updown(window.centralwidget).setGeometry(...)` |
+| **Menue** | Multi-page menu system | `Menue(window.centralwidget).add_page(...)` |
+| **Semicircle** | Rounded corner decoration | `Semicircle(window.centralwidget).setOrientation(...)` |
+| **Lcars** | Main window class | `window = Lcars()` |
+
+## 🎨 LCARS Color Palette
 
 ```python
 from pylcars import Colors
@@ -105,47 +148,139 @@ Colors.hellorange    # #fc4 - Bright orange
 Colors.rot           # #c00 - Red
 ```
 
-## Demo Applications
-
-Two demo applications showcase PyLCARS capabilities:
-
-### Menu Demo
-```bash
-python -m pylcars.demos.menu
+Or use any hex color:
+```python
+widget.set_color("#00ff00")  # Any hex value
 ```
-Interactive demonstration of widgets, menu system, sliders, and animation effects.
 
-### Sound Demo
-```bash
-python -m pylcars.demos.sounds
+## 💻 Complete Example
+
+```python
+from PyQt5 import QtWidgets
+from pylcars import Lcars, Bracket, Slider, Textline, Colors
+
+class MyApp:
+    def __init__(self):
+        self.app = QtWidgets.QApplication([])
+        self.window = Lcars()
+        self.window.setWindowTitle("My LCARS App")
+        self.setup_widgets()
+
+    def setup_widgets(self):
+        central = self.window.centralwidget
+
+        # Title
+        title = Textline(central)
+        title.setText("CONTROL PANEL")
+        title.set_color(Colors.leuchtblau)
+        title.setGeometry(50, 20, 700, 40)
+
+        # Power slider
+        label = Textline(central)
+        label.setText("Power:")
+        label.set_color(Colors.beige)
+        label.setGeometry(50, 80, 100, 30)
+
+        slider = Slider(central)
+        slider.set_color(Colors.orange)
+        slider.setRange(0, 100)
+        slider.setGeometry(160, 80, 400, 40)
+        slider.valueChanged.connect(self.on_power_changed)
+
+        # Power value display
+        self.power_display = Textline(central)
+        self.power_display.set_color(Colors.hellorange)
+        self.power_display.setGeometry(570, 80, 100, 30)
+
+        # Control button
+        button = Bracket(central)
+        button.setText("ACTIVATE")
+        button.set_color(Colors.orange)
+        button.setGeometry(50, 150, 150, 50)
+        button.clicked.connect(self.on_activate)
+
+    def on_power_changed(self, value):
+        self.power_display.setText(f"{value}%")
+
+    def on_activate(self):
+        print("Activated!")
+        self.power_display.tickle(Colors.orange)
+
+    def run(self):
+        self.window.show()
+        self.app.exec_()
+
+if __name__ == "__main__":
+    MyApp().run()
 ```
-Grid of 60 buttons demonstrating audio playback functionality.
 
-## Configuration
-
-PyLCARS uses sensible defaults that can be customized:
+## 🔊 Audio Support
 
 ```python
 from pylcars import Lcars
-from pylcars.config import DEFAULT_WINDOW_WIDTH, DEFAULT_WINDOW_HEIGHT
 
-# All configuration constants are available in pylcars.config module
+window = Lcars()
+window.set_play_sound(True)
+window.set_sound_file("path/to/sound.wav")
+window.play_sound()
 ```
 
-## Development
+Connect audio to button clicks:
 
-### Setting Up Development Environment
+```python
+button = Bracket(window.centralwidget)
+button.clicked.connect(lambda: window.play_sound())
+```
+
+## 🏗️ Project Structure
+
+```
+pylcars/
+├── __init__.py              # Package exports
+├── lcars.py                 # Main window class
+├── sound.py                 # Audio playback
+├── colors.py                # LCARS color palette
+├── conditions.py            # Status conditions
+├── enumeration.py           # Base enumeration
+├── orientation.py           # Direction constants
+├── config.py                # Configuration constants
+├── widgets/                 # Widget components
+│   ├── __init__.py
+│   ├── widgets.py           # Base widget class
+│   ├── bracket.py           # Button widget
+│   ├── block.py             # Rectangle widget
+│   ├── deco.py              # Decorative label
+│   ├── separator.py         # Divider widget
+│   ├── slider.py            # Slider control
+│   ├── textline.py          # Text label
+│   ├── updown.py            # Navigation control
+│   ├── menue.py             # Menu system
+│   └── semicircle.py        # Rounded bracket
+└── demos/                   # Example applications
+    ├── simple_window.py     # Minimal example
+    ├── colors_showcase.py   # Color palette
+    ├── widgets_showcase.py  # All widgets
+    ├── custom_theme.py      # Custom styling
+    ├── menu.py              # Interactive demo
+    └── sounds.py            # Audio demo
+```
+
+See [ARCHITECTURE.md](ARCHITECTURE.md) for detailed system design.
+
+## 🧪 Development
+
+### Setting Up for Development
 
 ```bash
-# Clone repository
+# Clone and install
 git clone https://github.com/StowasserH/pylcars.git
 cd pylcars
 
 # Create virtual environment
 python3 -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
+source venv/bin/activate  # Windows: venv\Scripts\activate
 
-# Install in development mode with test dependencies
+# Install with development dependencies
 pip install -e ".[dev]"
 ```
 
@@ -153,114 +288,102 @@ pip install -e ".[dev]"
 
 ```bash
 # Run all tests
-pytest
+pytest tests/ -v
 
-# Run with coverage
-pytest --cov=pylcars
+# With coverage
+pytest tests/ --cov=pylcars --cov-report=term-missing
 
-# Run specific test file
-pytest tests/test_imports.py -v
-```
-
-### Code Quality
-
-```bash
 # Type checking
 mypy pylcars/
 
-# Linting
-flake8 pylcars/ tests/
-
-# Format code
-black pylcars/ tests/
+# Code style
+flake8 pylcars/
 ```
 
-## Documentation
+### Code Quality Standards
 
-- [API Documentation](./docs/) - Detailed class and method documentation
-- [Contributing Guide](./CONTRIBUTING.md) - How to contribute to PyLCARS
-- [Changelog](./CHANGELOG.md) - Version history and updates
+- **Type Hints**: All functions must have parameter and return type hints
+- **Docstrings**: Google-style docstrings for all public APIs
+- **Testing**: New features should include tests
+- **Style**: PEP 8 compliance (100 char line length)
+- **Coverage**: Aim for >70% code coverage
 
-## Project Status
+## 🐛 Troubleshooting
 
-- **Current Version**: 0.1.0
-- **Status**: Active Development
-- **Python Support**: 3.8, 3.9, 3.10, 3.11, 3.12
-
-## Architecture
-
-PyLCARS is built on:
-- **PyQt5** - GUI framework
-- **PyAudio** - Audio playback
-- **xxhash** - Fast hashing for SVG cache management
-
-### Project Structure
-
-```
-pylcars/
-├── __init__.py           # Package exports
-├── lcars.py              # Main window class
-├── colors.py             # LCARS color palette
-├── conditions.py         # Status conditions
-├── enumeration.py        # Base enumeration class
-├── orientation.py        # Direction constants
-├── sound.py              # Audio playback
-├── config.py             # Configuration constants
-├── widgets/              # Widget components
-│   ├── widgets.py        # Base widget class
-│   ├── bracket.py        # Button widget
-│   ├── block.py          # Rectangle widget
-│   ├── deco.py           # Decorative label
-│   ├── separator.py      # Divider widget
-│   ├── slider.py         # Slider control
-│   ├── textline.py       # Text label
-│   ├── updown.py         # Navigation buttons
-│   ├── menue.py          # Menu system
-│   ├── semicircle.py     # Rounded bracket
-│   └── __init__.py       # Widget exports
-└── demos/                # Example applications
-    ├── menu.py           # Interactive demo
-    └── sounds.py         # Audio demo
-```
-
-## Troubleshooting
-
-### Audio playback not working
-- Ensure PortAudio is installed: `sudo apt-get install portaudio19-dev` (Debian/Ubuntu)
-- Check that your system has working audio output
+### Audio not working
+- Ensure PortAudio is installed: `sudo apt-get install portaudio19-dev`
+- Test PyAudio: `python -c "import pyaudio; print(pyaudio.__version__)"`
 
 ### PyQt5 import errors
-- Reinstall PyQt5: `pip install --upgrade PyQt5`
-- On some systems, use system package: `sudo apt-get install python3-pyqt5`
+- Reinstall: `pip install --upgrade PyQt5`
+- Or use system package: `sudo apt-get install python3-pyqt5`
 
-### Display issues
-- Some widgets require X11. Use `Xvfb` for headless testing
-- Ensure your display supports the required resolution (default 800x480)
+### Window won't display
+- Ensure you call `window.show()` before `app.exec_()`
+- Check that widgets have explicit `.setGeometry()` calls
 
-## Contributing
+### Widgets invisible
+- All widgets need explicit positioning: `widget.setGeometry(x, y, w, h)`
+- Default size is 0, so they won't appear without geometry
 
-We welcome contributions! Please see [CONTRIBUTING.md](./CONTRIBUTING.md) for guidelines.
+## 📚 Learning Resources
 
-## Authors
+- [USAGE.md](USAGE.md) - Comprehensive usage guide with code examples
+- [ARCHITECTURE.md](ARCHITECTURE.md) - Design documentation and system architecture
+- [CONTRIBUTING.md](CONTRIBUTING.md) - Development guidelines
+- `pylcars/demos/` - Working example applications
+- Docstrings in source code - Class and method documentation
 
-- **Harald Stowasser** - *Initial work* - [StowasserH](https://github.com/StowasserH)
+## 🤝 Contributing
 
-See also the list of [contributors](https://github.com/StowasserH/pylcars/contributors) who participated in this project.
+Contributions are welcome! Please see [CONTRIBUTING.md](CONTRIBUTING.md) for:
+- Development setup
+- Code style guidelines
+- Testing requirements
+- Pull request process
 
-## License
+## 📝 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Inspiration
+## 🙏 Acknowledgments
 
-PyLCARS is inspired by the iconic Library Computer Access and Retrieval System (LCARS) interface from Star Trek: The Next Generation and subsequent Star Trek series. The design aesthetic captures the optimistic, functional 1990s sci-fi aesthetic that made Star Trek's user interfaces memorable and instantly recognizable.
+- **Star Trek** - For the iconic LCARS aesthetic
+- **PyQt5** - The GUI framework that makes this possible
+- **Contributors** - Everyone who has contributed to this project
 
-## References
+## 🔗 Links
 
-- [Star Trek: The Next Generation](https://www.startrek.com/)
-- [LCARS Design Philosophy](https://memory-alpha.fandom.com/wiki/LCARS)
-- [PyQt5 Documentation](https://www.riverbankcomputing.com/static/Docs/PyQt5/)
+- [GitHub Repository](https://github.com/StowasserH/pylcars)
+- [Bug Reports & Issues](https://github.com/StowasserH/pylcars/issues)
+- [Discussions](https://github.com/StowasserH/pylcars/discussions)
+- [Star Trek Official](https://www.startrek.com/)
+
+## 🎯 Project Status
+
+| Aspect | Status |
+|--------|--------|
+| Development | ✅ Active |
+| Version | 0.1.0 |
+| Python Support | 3.8, 3.9, 3.10, 3.11, 3.12 |
+| Tests | ✅ Passing |
+| Documentation | ✅ Complete |
+| Type Hints | ✅ 100% |
+| CI/CD | ✅ GitHub Actions |
+
+## 📋 Roadmap
+
+- [ ] More widget types (progress bars, indicators)
+- [ ] Advanced animations and transitions
+- [ ] Theme system with loadable theme files
+- [ ] Extended audio format support
+- [ ] Performance optimizations
+- [ ] PyPI publishing
+- [ ] More demo applications
+- [ ] Video tutorials
 
 ---
 
-**May your interfaces be bold and your colors be vivid!** 🚀🖖
+**Ready to build something legendary? Start with the [Usage Guide](USAGE.md)!** 🚀
+
+*May your interfaces be bold and your colors be vivid!* 🖖
