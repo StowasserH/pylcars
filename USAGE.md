@@ -382,6 +382,35 @@ text.setFont(font)
 text.setText("BOLD TEXT")
 ```
 
+### Installing the LCARS Font
+
+The LCARS font provides the authentic Star Trek look but is not pre-installed.
+
+**To install the LCARS font:**
+
+1. **Find the font**
+   - Search for "LCARS font" on GitHub (many Star Trek fan repositories)
+   - Look in fan communities and forums for Star Trek fonts
+   - Check font archives for Star Trek collections
+
+2. **Install the font**
+   ```bash
+   # Copy the .ttf file to your fonts directory
+   cp lcars.ttf ~/.local/share/fonts/
+
+   # Or system-wide (requires sudo)
+   sudo cp lcars.ttf /usr/share/fonts/
+   ```
+
+3. **Update font cache**
+   ```bash
+   fc-cache -f ~/.local/share/fonts
+   ```
+
+4. **Restart your application**
+
+**Note:** If the LCARS font is not installed, PyLCARS automatically falls back to Courier font at 18pt, which provides a working alternative. A warning message will be displayed when the application starts if the LCARS font is not available.
+
 ## Advanced Usage
 
 ### Event Handling

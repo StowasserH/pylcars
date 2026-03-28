@@ -137,17 +137,23 @@ class Widgets:
 
             # Show warning only once
             if not _FALLBACK_FONT_WARNING_SHOWN:
-                print("\n" + "=" * 70)
+                print("\n" + "=" * 75)
                 print("⚠️  WARNING: LCARS font not found!")
-                print("=" * 70)
+                print("=" * 75)
                 print(f"The '{DEFAULT_FONT_NAME}' font is not installed on this system.")
-                print(f"Falling back to '{FALLBACK_FONT_NAME}' font at {FALLBACK_FONT_SIZE}pt")
-                print("\nTo install the LCARS font:")
-                print("  1. Download from: https://www.dafont.com/lcars.font")
-                print("  2. Extract to: ~/.local/share/fonts/")
-                print("  3. Run: fc-cache -f ~/.local/share/fonts")
-                print("  4. Restart the application")
-                print("=" * 70 + "\n")
+                print(f"Using fallback '{FALLBACK_FONT_NAME}' font at {FALLBACK_FONT_SIZE}pt instead.")
+                print("\n📝 To install the LCARS font:\n")
+                print("  1. Search for 'LCARS font' or 'Star Trek fonts' online")
+                print("     Good sources:")
+                print("       • GitHub: search for 'LCARS font' repositories")
+                print("       • Font archives: Star Trek fan communities")
+                print("       • Local font collections")
+                print("\n  2. Save the .ttf file to: ~/.local/share/fonts/")
+                print("     Or: /usr/share/fonts/ (system-wide)")
+                print("\n  3. Update font cache:")
+                print("       $ fc-cache -f ~/.local/share/fonts")
+                print("\n  4. Restart the application")
+                print("\n" + "=" * 75 + "\n")
                 _FALLBACK_FONT_WARNING_SHOWN = True
         else:
             # Font is available or custom font was requested

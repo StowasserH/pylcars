@@ -153,6 +153,17 @@ Or use any hex color:
 widget.set_color("#00ff00")  # Any hex value
 ```
 
+## 📝 Fonts and Media
+
+**Note on Copyrighted Content:** The LCARS font and Star Trek sounds are not included with PyLCARS for copyright reasons. However, many beautiful fonts and sound effects from the Star Trek films and TV series are available from fan communities and archives online.
+
+You can find Star Trek-themed fonts and sounds by searching:
+- GitHub for "LCARS font" and "Star Trek fonts" repositories
+- Star Trek fan communities and forums
+- General font archives with Star Trek collections
+
+Once you have the LCARS font file (.ttf), install it to `~/.local/share/fonts/` and run `fc-cache -f ~/.local/share/fonts/`. See [USAGE.md](USAGE.md) for detailed font installation instructions.
+
 ## 💻 Complete Example
 
 ```python
