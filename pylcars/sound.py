@@ -55,11 +55,25 @@ class Sound:
     def __del__(self) -> None:
         """Clean up PyAudio resources on object destruction.
 
-        Terminates the PyAudio instance if it has been initialized to prevent
-        resource leaks.
+        Closes all active streams and terminates the PyAudio instance
+        to prevent resource leaks.
         """
-        if self.wav:
-            self.wav.terminate()
+        try:
+            # Close all streams first
+            for stream in self.streams:
+                try:
+                    if stream.is_active():
+                        stream.stop_stream()
+                    stream.close()
+                except Exception:
+                    pass
+
+            # Then terminate PyAudio
+            if self.wav:
+                self.wav.terminate()
+        except Exception:
+            # Suppress exceptions in __del__ to prevent issues during shutdown
+            pass
 
     def sound(self, file: str) -> None:
         """Play a WAV audio file.
@@ -70,14 +84,27 @@ class Sound:
 
         Args:
             file: Path to the WAV file to play.
+
+        Raises:
+            wave.Error: If the WAV file is invalid or cannot be read.
+            FileNotFoundError: If the file does not exist.
         """
-        # first close old, allready played sounds:
+        # Clean up inactive streams using list comprehension to avoid modifying list during iteration
+        self.streams = [s for s in self.streams if s.is_active()]
+
+        # Close any remaining inactive streams
         for stream in self.streams:
-            if not stream.is_active():
-                stream.stop_stream()
-                stream.close()
-                self.streams.remove(stream)
-        if self.wav:
+            try:
+                if not stream.is_active():
+                    stream.stop_stream()
+                    stream.close()
+            except Exception:
+                pass
+
+        if not self.wav:
+            return
+
+        try:
             chunk: int = 256
             wf: wave.Wave_read = wave.open(file, 'rb')
 
@@ -87,26 +114,50 @@ class Sound:
                 return data, pyaudio.paContinue
 
             # open stream using callback (3)
-            stream: pyaudio.Stream = self.wav.open(format=self.wav.get_format_from_width(wf.getsampwidth()),
-                                   channels=wf.getnchannels(),
-                                   rate=wf.getframerate(),
-                                   output=True,
-                                   frames_per_buffer=chunk,
-                                   stream_callback=callback,
-                                   )  # start=True)
+            stream: pyaudio.Stream = self.wav.open(
+                format=self.wav.get_format_from_width(wf.getsampwidth()),
+                channels=wf.getnchannels(),
+                rate=wf.getframerate(),
+                output=True,
+                frames_per_buffer=chunk,
+                stream_callback=callback,
+            )
             self.streams.append(stream)
+            # Note: wf is kept open because the callback still needs it during playback
+        except (FileNotFoundError, wave.Error) as e:
+            print(f"Error playing sound '{file}': {e}")
 
     def setPlay_sound(self, play_sound: bool = True) -> None:
         """Enable or disable sound playback capability.
 
         Initializes or terminates the PyAudio instance based on the desired state.
-        When disabled, cleans up the PyAudio instance and sets it to None.
+        When disabled, cleans up all active streams and the PyAudio instance.
 
         Args:
             play_sound: True to enable sound playback, False to disable (default: True).
         """
+        # Clean up all existing streams
+        for stream in self.streams:
+            try:
+                if stream.is_active():
+                    stream.stop_stream()
+                stream.close()
+            except Exception:
+                pass
+        self.streams = []
+
+        # Terminate PyAudio if it's running
         if self.wav:
-            self.wav.terminate()
+            try:
+                self.wav.terminate()
+            except Exception:
+                pass
             self.wav = None
+
+        # Initialize PyAudio if requested
         if play_sound:
-            self.wav = pyaudio.PyAudio()
+            try:
+                self.wav = pyaudio.PyAudio()
+            except Exception as e:
+                print(f"Error initializing PyAudio: {e}")
+                self.wav = None
