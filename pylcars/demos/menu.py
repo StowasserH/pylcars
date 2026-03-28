@@ -70,11 +70,13 @@ class LcarsApp(pylcars.Lcars):
         self.vslider = pylcars.Slider(self, QtCore.QRect(140, 44, 180, 40),QtCore.Qt.Horizontal)
         self.vslider.setInvertedAppearance(True)
         self.vslider.setInvertedControls(True)
+        self.vslider.hide()
         self.menue.pages['SLIDER']['slider'] = self.vslider
 
         self.hslider = pylcars.Slider(self, QtCore.QRect(140, 84, 40, 180),QtCore.Qt.Vertical)
         self.hslider.setInvertedAppearance(True)
         self.hslider.setInvertedControls(True)
+        self.hslider.hide()
         self.menue.pages['SLIDER']['hslider'] = self.hslider
 
         # _________________________________________________________________
@@ -83,12 +85,14 @@ class LcarsApp(pylcars.Lcars):
         # _________________________________________________________________
 
         self.updown = pylcars.Updown(self, QtCore.QRect(140, 44, 180, 40), "0 ")
+        self.updown.hide()
         self.menue.pages['BUTTONS']['updown'] = self.updown
         self.updown.down.clicked.connect(self.updown_down)
         self.updown.up.clicked.connect(self.updown_up)
         self.updown.start.clicked.connect(self.updown_click)
 
         self.updown2 = pylcars.Updown(self, QtCore.QRect(340, 44, 180, 40), text="0 ")
+        self.updown2.hide()
         self.menue.pages['BUTTONS']['updown2'] = self.updown2
         self.updown2.down.clicked.connect(self.updown2_down)
         self.updown2.up.clicked.connect(self.updown2_up)
@@ -100,7 +104,6 @@ class LcarsApp(pylcars.Lcars):
         for color in pylcars.Colors.__dict__.items():
             if not color[0].startswith('_'):
                 self.colors[color[0]] = color[1]
-        print(str(self.colors))
         for row in range(8):
             self.buttons[row] = {}
             for col in range(4):
@@ -108,6 +111,7 @@ class LcarsApp(pylcars.Lcars):
                 buttonname = "{r}_{c}".format(r=row, c=col)
                 self.buttons[row][col] = pylcars.Bracket(self, QtCore.QRect(140 + 160 * col, 88 + 44 * row, 156, 40)
                                                          , "{c} {n}".format(c=name, n=buttonname), color)
+                self.buttons[row][col].hide()
                 self.menue.pages['BUTTONS'][buttonname] = self.buttons[row][col]
                 self.buttons[row][col].clicked.connect(partial(self.button_callback, button_name=buttonname))
 
