@@ -12,6 +12,9 @@ from pylcars.config import DEFAULT_WINDOW_HEIGHT, DEFAULT_WINDOW_WIDTH
 
 def main() -> None:
     """Display all LCARS colors with labels and hex values."""
+    # Create QApplication FIRST, before any widgets
+    app = QtWidgets.QApplication(sys.argv)
+
     # Create the main LCARS window
     window = Lcars()
     window.setWindowTitle("LCARS Colors")
@@ -54,11 +57,7 @@ def main() -> None:
 
     window.show()
 
-    # Get or create QApplication
-    app = QtWidgets.QApplication.instance()
-    if app is None:
-        app = QtWidgets.QApplication(sys.argv)
-
+    # Run event loop
     sys.exit(app.exec_())
 
 

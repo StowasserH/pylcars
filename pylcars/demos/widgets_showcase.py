@@ -19,6 +19,9 @@ from pylcars import (
 
 def main() -> None:
     """Display examples of key LCARS widget types."""
+    # Create QApplication FIRST, before any widgets
+    app = QtWidgets.QApplication(sys.argv)
+
     # Create the main LCARS window
     window = Lcars()
     window.setWindowTitle("LCARS Widgets Showcase")
@@ -62,11 +65,7 @@ def main() -> None:
 
     window.show()
 
-    # Get or create QApplication
-    app = QtWidgets.QApplication.instance()
-    if app is None:
-        app = QtWidgets.QApplication(sys.argv)
-
+    # Run event loop
     sys.exit(app.exec_())
 
 

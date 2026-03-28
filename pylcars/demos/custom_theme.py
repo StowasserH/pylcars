@@ -11,6 +11,9 @@ from pylcars import Lcars, Bracket, Block, Textline, Colors
 
 def main() -> None:
     """Create a LCARS window with custom styling."""
+    # Create QApplication FIRST, before any widgets
+    app = QtWidgets.QApplication(sys.argv)
+
     # Create the main LCARS window
     window = Lcars()
     window.setWindowTitle("Custom Theme Example")
@@ -54,11 +57,7 @@ def main() -> None:
 
     window.show()
 
-    # Get or create QApplication
-    app = QtWidgets.QApplication.instance()
-    if app is None:
-        app = QtWidgets.QApplication(sys.argv)
-
+    # Run event loop
     sys.exit(app.exec_())
 
 

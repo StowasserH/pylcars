@@ -11,6 +11,9 @@ from pylcars import Lcars, Bracket, Colors
 
 def main() -> None:
     """Create and display a minimal LCARS window with a single button."""
+    # Create QApplication FIRST, before any widgets
+    app = QtWidgets.QApplication(sys.argv)
+
     # Create the main LCARS window
     window = Lcars()
     window.setWindowTitle("Simple LCARS Window")
@@ -27,12 +30,7 @@ def main() -> None:
     # Show the window
     window.show()
 
-    # This should be called by the module when run directly
-    # But we need QApplication to exist first
-    app = QtWidgets.QApplication.instance()
-    if app is None:
-        app = QtWidgets.QApplication(sys.argv)
-
+    # Run event loop
     sys.exit(app.exec_())
 
 
